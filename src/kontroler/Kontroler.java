@@ -18,6 +18,15 @@ import transfer.ServerTransfer;
  */
 public class Kontroler {
     
+    private static Kontroler instance;
+    
+    public static Kontroler vratiKontrolera(){
+        if(instance == null){
+            instance = new Kontroler();
+        }
+        return instance;
+    }
+    
     Komunikacija kom = Komunikacija.vratiInstancu();
     
    public List<AbstractObjekat> vratiSvaMesta() throws IOException, ClassNotFoundException{
