@@ -6,7 +6,6 @@
 package forme;
 
 import domen.AbstractObjekat;
-import domen.Mesto;
 import java.io.IOException;
 import java.util.ArrayList;
 import kontroler.Kontroler;
@@ -19,13 +18,11 @@ import java.util.logging.Logger;
  * @author vujke
  */
 public class TestFrm extends javax.swing.JFrame {
-    Kontroler kontroler;
     /**
      * Creates new form TestFrm
      */
     public TestFrm() throws IOException, ClassNotFoundException {
         initComponents();
-        kontroler = Kontroler.vratiKontrolera();
         srediFormu();
     }
 
@@ -121,8 +118,13 @@ public class TestFrm extends javax.swing.JFrame {
         
         List<AbstractObjekat> lm = new ArrayList<>();
         List<AbstractObjekat> mesta = new ArrayList<>();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(TestFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
                 //(List<AbstractObjekat>) kontroler.vratiSvaMesta();
-        mesta = kontroler.vratiSvaMesta();
+        mesta = Kontroler.vratiKontrolera().vratiSvaMesta();
        // List<Mesto> listaMesta = (Mesto) mesta;
         //lm = k.vratiSvaMesta();
          for (AbstractObjekat m : mesta) {

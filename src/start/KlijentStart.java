@@ -5,6 +5,8 @@
  */
 package start;
 
+import forme.IndexFrm;
+import forme.TestFrm;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Level;
@@ -21,17 +23,13 @@ public class KlijentStart extends Thread {
     public void run() {
         try {
             Socket soket = new Socket("localhost",9000);
+            System.out.println("objekat soket napravljen");
             Komunikacija.vratiInstancu().setSocket(soket);
+            System.out.println("setovan soket");
 // super.run(); //To change body of generated methods, choose Tools | Templates.
         } catch (IOException ex) {
             Logger.getLogger(KlijentStart.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public static void main(String[] args) {
-        
-    }
-    
-    
     
 }
