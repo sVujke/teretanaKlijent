@@ -50,7 +50,7 @@ public class Kontroler {
         kt.setOperacija(konstante.Konstante.PRIJAVI_KORISNIKA);
         kt.setParametar(k);
         kom.posaljiZahtev(kt);
-        ServerTransfer st = kom.procitajOdgovor();
+        ServerTransfer st = kom.procitajOdgovor();  // izgleda da je ovde greska! 
             System.out.println("evo me u kont klijenta 1 ");
         if(st.getUspesnostOperacije() == 1){
             System.out.println("evo me u kont klijenta 2");
