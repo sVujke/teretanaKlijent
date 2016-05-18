@@ -114,6 +114,11 @@ public class IndexFrm extends javax.swing.JFrame {
         jMenu2.add(jmiTest);
 
         jmiUKorisnicima.setText("Upravljanje korisnicima");
+        jmiUKorisnicima.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiUKorisnicimaActionPerformed(evt);
+            }
+        });
         jMenu2.add(jmiUKorisnicima);
 
         jMenuBar1.add(jMenu2);
@@ -191,6 +196,15 @@ public class IndexFrm extends javax.swing.JFrame {
             Logger.getLogger(IndexFrm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jbtPrijavaActionPerformed
+
+    private void jmiUKorisnicimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiUKorisnicimaActionPerformed
+        // TODO add your handling code here:
+        //UpravljanjeKorisnicimaFrm frm = new ();
+        //JDialog dialog = new JDialog(this, "Dodaj zadatak");
+        //  dialog.add(frm);
+        //  dialog.pack();
+        //  dialog.setVisible(true);
+    }//GEN-LAST:event_jmiUKorisnicimaActionPerformed
 
     /**
      * @param args the command line arguments
