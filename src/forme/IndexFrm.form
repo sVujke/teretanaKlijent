@@ -58,6 +58,11 @@
               </Group>
               <EmptySpace pref="72" max="32767" attributes="0"/>
           </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jlblLoginRadi" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="191" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -67,7 +72,9 @@
               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="61" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jlblLoginRadi" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="29" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -156,6 +163,11 @@
           <Font name="Tahoma" size="24" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Prijavite se na aplikaciju:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jlblLoginRadi">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel4"/>
       </Properties>
     </Component>
   </SubComponents>

@@ -5,6 +5,7 @@
  */
 package forme;
 
+import domen.Korisnik;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,6 +43,7 @@ public class IndexFrm extends javax.swing.JFrame {
         jbtPrijava = new javax.swing.JToggleButton();
         jPasswordField = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
+        jlblLoginRadi = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jmiTest = new javax.swing.JMenuItem();
@@ -99,6 +101,8 @@ public class IndexFrm extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setText("Prijavite se na aplikaciju:");
 
+        jlblLoginRadi.setText("jLabel4");
+
         jMenu2.setText("Edit");
 
         jmiTest.setText("Test");
@@ -126,6 +130,10 @@ public class IndexFrm extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(72, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jlblLoginRadi)
+                .addGap(191, 191, 191))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,7 +142,9 @@ public class IndexFrm extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jlblLoginRadi)
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -153,15 +163,32 @@ public class IndexFrm extends javax.swing.JFrame {
 
     private void jbtPrijavaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPrijavaActionPerformed
         // TODO add your handling code here:
-        String username = jtxtUserName.getText();
-        char[] password = jPasswordField.getPassword();
+        String username = jtxtUserName.getText().trim();
+        char[] passChar = jPasswordField.getPassword();
+        String password = new String(passChar);
         
-        if(username.isEmpty()){
-            JOptionPane.showMessageDialog(rootPane, "Unesite username");
+        if(username.length() == 0 && password.length() == 0){
+            JOptionPane.showMessageDialog(rootPane, "Unesite korisničko ime i šifru");
+        } else if (username.length() == 0){
+            JOptionPane.showMessageDialog(rootPane, "Unesite korisničko ime");
+        } else if((password.length() == 0)){
+            JOptionPane.showMessageDialog(rootPane, "Unesite šifru");
         }
         
-        if(password.length == 0){
-            JOptionPane.showMessageDialog(rootPane, "Unesite sifru");
+        Korisnik k = new Korisnik("", "", password, username);
+        Korisnik korisnik;
+        try {
+            
+            korisnik = kontroler.Kontroler.vratiKontrolera().prijaviKorisnika(k);
+            if(korisnik != null){
+                jlblLoginRadi.setText("Ulgovan si");
+            } else{
+                jlblLoginRadi.setText("Stigao null");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(IndexFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(IndexFrm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jbtPrijavaActionPerformed
 
@@ -209,6 +236,7 @@ public class IndexFrm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField;
     private javax.swing.JToggleButton jbtPrijava;
+    private javax.swing.JLabel jlblLoginRadi;
     private javax.swing.JMenuItem jmiTest;
     private javax.swing.JMenuItem jmiUKorisnicima;
     private javax.swing.JTextField jtxtUserName;

@@ -6,6 +6,7 @@
 package kontroler;
 
 import domen.AbstractObjekat;
+import domen.Korisnik;
 import java.io.IOException;
 import java.util.List;
 import komunikacija.Komunikacija;
@@ -26,6 +27,8 @@ public class Kontroler {
         }
         return instance;
     }
+
+   
     
     Komunikacija kom = Komunikacija.vratiInstancu();
     
@@ -41,6 +44,22 @@ public class Kontroler {
            return null;
        }
    }
-    
+   
+    public Korisnik prijaviKorisnika(Korisnik k) throws IOException, ClassNotFoundException {
+        KlijentTransfer kt = new KlijentTransfer();
+        kt.setOperacija(konstante.Konstante.PRIJAVI_KORISNIKA);
+        kt.setParametar(k);
+        kom.posaljiZahtev(kt);
+        ServerTransfer st = kom.procitajOdgovor();
+            System.out.println("evo me u kont klijenta 1 ");
+        if(st.getUspesnostOperacije() == 1){
+            System.out.println("evo me u kont klijenta 2");
+           return (Korisnik) (st.getPodaci());
+       } else {
+           return null;
+       }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+      
    
 }
