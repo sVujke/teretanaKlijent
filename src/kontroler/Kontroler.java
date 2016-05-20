@@ -50,15 +50,29 @@ public class Kontroler {
         kt.setOperacija(konstante.Konstante.PRIJAVI_KORISNIKA);
         kt.setParametar(k);
         kom.posaljiZahtev(kt);
-        ServerTransfer st = kom.procitajOdgovor();  // izgleda da je ovde greska! 
-            System.out.println("evo me u kont klijenta 1 ");
+        ServerTransfer st = kom.procitajOdgovor();  
+            //System.out.println("evo me u kont klijenta 1 ");
         if(st.getUspesnostOperacije() == 1){
-            System.out.println("evo me u kont klijenta 2");
+            //System.out.println("evo me u kont klijenta 2");
            return (Korisnik) (st.getPodaci());
        } else {
            return null;
        }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public AbstractObjekat zapamtiClana(AbstractObjekat clan) throws IOException, ClassNotFoundException{
+        KlijentTransfer kt = new KlijentTransfer();
+        kt.setOperacija(konstante.Konstante.ZAPAMTI_CLANA);
+        kt.setParametar(clan);
+        kom.posaljiZahtev(kt);
+        ServerTransfer st = kom.procitajOdgovor();
+        if(st.getUspesnostOperacije() == 1){
+            //System.out.println("evo me u kont klijenta 2");
+           return (Korisnik) (st.getPodaci());
+       } else {
+           return null;
+       }
     }
       
    
