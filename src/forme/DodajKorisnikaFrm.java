@@ -6,9 +6,13 @@
 package forme;
 
 import domen.Korisnik;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import kontroler.Kontroler;
 import model.TblModelKorisnik;
 
 /**
@@ -133,7 +137,7 @@ public class DodajKorisnikaFrm extends javax.swing.JPanel {
         
         List<Korisnik> korisnici = tbl.vratiListu();
         for (Korisnik korisnik : korisnici) {
-            if(k.equals(korisnik)){
+            if(k.getUsername().equalsIgnoreCase(korisnik.getUsername()) || k.getEmail().equalsIgnoreCase(korisnik.getEmail())){
                 neceMoci = true;
                 JOptionPane.showConfirmDialog(jtxtIme, "U bazi već postoji"
                         + " korisnik sa takvim korisničkim imenom"
@@ -142,7 +146,16 @@ public class DodajKorisnikaFrm extends javax.swing.JPanel {
         }
         
         if(neceMoci != true){
-            //dodajem u bazu 
+            try {
+                //dodajem u bazu
+                Kontroler.vratiKontrolera().zapamtiKorisnika(k);
+                tbl.dodajUTabelu(k);
+                JOptionPane.showMessageDialog(jtxtIme, "Dodat je korisnik "+k.getIme());
+            } catch (IOException ex) {
+                Logger.getLogger(DodajKorisnikaFrm.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(DodajKorisnikaFrm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_jbtDodajActionPerformed
 

@@ -54,6 +54,7 @@ public class TblModelKorisnik extends AbstractTableModel{
     
     public void dodajUTabelu(Korisnik k){
         korisnici.add(k);
+        fireTableDataChanged();
     }
     
     public List<Korisnik> vratiListu(){

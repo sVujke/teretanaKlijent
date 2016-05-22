@@ -6,6 +6,7 @@
 package kontroler;
 
 import domen.AbstractObjekat;
+import domen.Clan;
 import domen.Korisnik;
 import java.io.IOException;
 import java.util.List;
@@ -83,7 +84,7 @@ public class Kontroler {
         ServerTransfer st = kom.procitajOdgovor();
         if(st.getUspesnostOperacije() == 1){
             //System.out.println("evo me u kont klijenta 2");
-           return (Korisnik) (st.getPodaci());
+           return (Clan) (st.getPodaci());
        } else {
            return null;
        }
@@ -102,6 +103,19 @@ public class Kontroler {
        }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-      
+    
+     public AbstractObjekat zapamtiKorisnika(AbstractObjekat korisnik) throws IOException, ClassNotFoundException{
+        KlijentTransfer kt = new KlijentTransfer();
+        kt.setOperacija(konstante.Konstante.ZAPAMTI_KORISNIKA);
+        kt.setParametar(korisnik);
+        kom.posaljiZahtev(kt);
+        ServerTransfer st = kom.procitajOdgovor();
+        if(st.getUspesnostOperacije() == 1){
+            //System.out.println("evo me u kont klijenta 2");
+           return (Korisnik) (st.getPodaci());
+       } else {
+           return null;
+       }
+    }
    
 }
