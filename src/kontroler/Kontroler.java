@@ -74,6 +74,20 @@ public class Kontroler {
            return null;
        }
     }
+    
+    public AbstractObjekat obrisiClana(AbstractObjekat clan) throws IOException, ClassNotFoundException{
+         KlijentTransfer kt = new KlijentTransfer();
+        kt.setOperacija(konstante.Konstante.OBRISI_CLANA);
+        kt.setParametar(clan);
+        kom.posaljiZahtev(kt);
+        ServerTransfer st = kom.procitajOdgovor();
+        if(st.getUspesnostOperacije() == 1){
+            //System.out.println("evo me u kont klijenta 2");
+           return (Korisnik) (st.getPodaci());
+       } else {
+           return null;
+       }
+    }
       
    
 }
