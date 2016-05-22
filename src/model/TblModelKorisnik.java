@@ -60,5 +60,11 @@ public class TblModelKorisnik extends AbstractTableModel{
     public List<Korisnik> vratiListu(){
         return korisnici;
     }
+
+    public void izbaciIzListe(Korisnik k) {
+        korisnici.remove(k);
+        fireTableDataChanged();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

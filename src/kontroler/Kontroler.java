@@ -117,5 +117,18 @@ public class Kontroler {
            return null;
        }
     }
-   
+    
+      public AbstractObjekat obrisiKorisnika(AbstractObjekat korisnik) throws IOException, ClassNotFoundException{
+        KlijentTransfer kt = new KlijentTransfer();
+        kt.setOperacija(konstante.Konstante.OBRISI_KORISNIKA);
+        kt.setParametar(korisnik);
+        kom.posaljiZahtev(kt);
+        ServerTransfer st = kom.procitajOdgovor();
+        if(st.getUspesnostOperacije() == 1){
+            //System.out.println("evo me u kont klijenta 2");
+           return (AbstractObjekat) (st.getPodaci());
+       } else {
+           return null;
+       }
+    }
 }

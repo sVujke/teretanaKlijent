@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import kontroler.Kontroler;
 import model.TblModelKorisnik;
 
@@ -71,6 +72,11 @@ public class UpravljanjeKorisnicimaFrm extends javax.swing.JFrame {
         });
 
         jbtIzbrisi.setText("Izbrisi korisnika");
+        jbtIzbrisi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtIzbrisiActionPerformed(evt);
+            }
+        });
 
         jbtSacuvaj.setText("Sačuvaj promene");
 
@@ -124,6 +130,23 @@ public class UpravljanjeKorisnicimaFrm extends javax.swing.JFrame {
          dialog.pack();
          dialog.setVisible(true);
     }//GEN-LAST:event_jbtDodajActionPerformed
+
+    private void jbtIzbrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtIzbrisiActionPerformed
+        try {
+            // TODO add your handling code here:
+            int red = jTable1.getSelectedRow();
+            Korisnik k = tbl.vratiListu().get(red);
+            Kontroler.vratiKontrolera().obrisiKorisnika(k);
+            //JOptionPane.showConfirmDialog(rootPane, "Obrisan je korisnik "+k.getIme());
+            JOptionPane.showMessageDialog(rootPane, "Obrisan je korisnik "+k.getIme());
+            tbl.izbaciIzListe(k);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Doslo je do greške pri brisanju.");
+            Logger.getLogger(UpravljanjeKorisnicimaFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UpravljanjeKorisnicimaFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jbtIzbrisiActionPerformed
 
     /**
      * @param args the command line arguments

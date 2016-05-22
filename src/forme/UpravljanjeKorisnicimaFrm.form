@@ -99,6 +99,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Izbrisi korisnika"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtIzbrisiActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JToggleButton" name="jbtSacuvaj">
       <Properties>
