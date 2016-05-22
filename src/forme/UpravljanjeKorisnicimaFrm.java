@@ -5,17 +5,31 @@
  */
 package forme;
 
+import domen.AbstractObjekat;
+import domen.Korisnik;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JDialog;
+import kontroler.Kontroler;
+import model.TblModelKorisnik;
+
 /**
  *
  * @author vujke
  */
 public class UpravljanjeKorisnicimaFrm extends javax.swing.JFrame {
-
+    
+    TblModelKorisnik tbl;
     /**
      * Creates new form UpravljanjeKorisnicimaFrm
      */
     public UpravljanjeKorisnicimaFrm() {
         initComponents();
+        System.out.println("Sredi tabelu sledi");
+        srediTabelu();
     }
 
     /**
@@ -50,6 +64,11 @@ public class UpravljanjeKorisnicimaFrm extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jbtDodaj.setText("Dodaj korinsika");
+        jbtDodaj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtDodajActionPerformed(evt);
+            }
+        });
 
         jbtIzbrisi.setText("Izbrisi korisnika");
 
@@ -97,6 +116,15 @@ public class UpravljanjeKorisnicimaFrm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbtDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDodajActionPerformed
+        // TODO add your handling code here:
+         DodajKorisnikaFrm frm = new DodajKorisnikaFrm(tbl);
+         JDialog dialog = new JDialog(this, "Dodaj korisnika");
+         dialog.add(frm);
+         dialog.pack();
+         dialog.setVisible(true);
+    }//GEN-LAST:event_jbtDodajActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -140,4 +168,29 @@ public class UpravljanjeKorisnicimaFrm extends javax.swing.JFrame {
     private javax.swing.JToggleButton jbtIzbrisi;
     private javax.swing.JToggleButton jbtSacuvaj;
     // End of variables declaration//GEN-END:variables
+
+    private void srediTabelu(){
+        tbl = new TblModelKorisnik(new ArrayList<>());
+        List<AbstractObjekat> korisniciBaza = new ArrayList<>();
+        System.out.println("korisniciBaza");
+        try {
+            System.out.println("pre vratiListuKorisnika");
+            korisniciBaza = Kontroler.vratiKontrolera().vratiListuKorisnika();
+            System.out.println("posle vratiListuKorisnika");
+            for (AbstractObjekat ao : korisniciBaza) {
+            Korisnik m = (Korisnik) ao;
+                System.out.println(m);
+            tbl.dodajUTabelu(m);
+            System.out.println("dodat");
+        }
+        } catch (IOException ex) {
+            Logger.getLogger(UpravljanjeKorisnicimaFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UpravljanjeKorisnicimaFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        
+        jTable1.setModel(tbl);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

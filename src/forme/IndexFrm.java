@@ -247,7 +247,7 @@ public class IndexFrm extends javax.swing.JFrame {
                 jlblUlogovan.setVisible(true);
                 
             } else{
-                jlblUlogovan.setText("Stigao null");
+                JOptionPane.showMessageDialog(rootPane, "Pogresan username ili password");
             }
         } catch (IOException ex) {
             Logger.getLogger(IndexFrm.class.getName()).log(Level.SEVERE, null, ex);

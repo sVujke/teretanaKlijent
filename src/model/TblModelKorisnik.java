@@ -18,6 +18,11 @@ public class TblModelKorisnik extends AbstractTableModel{
     List<Korisnik> korisnici;
     String[] kolone = new String[]{"email","ime","username"};
 
+    public TblModelKorisnik(List<Korisnik> korisnici) {
+        this.korisnici = korisnici;
+    }
+    
+    
     @Override
     public int getRowCount() {
         return korisnici.size();
@@ -41,6 +46,18 @@ public class TblModelKorisnik extends AbstractTableModel{
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public String getColumnName(int column) {
+        return kolone[column];//return super.getColumnName(column); //To change body of generated methods, choose Tools | Templates.
+    }
     
+    public void dodajUTabelu(Korisnik k){
+        korisnici.add(k);
+    }
+    
+    public List<Korisnik> vratiListu(){
+        return korisnici;
+    }
     
 }

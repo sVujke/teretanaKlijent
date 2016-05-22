@@ -33,9 +33,9 @@
                       <EmptySpace pref="27" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jtxtIme" alignment="1" min="-2" pref="202" max="-2" attributes="0"/>
-                          <Component id="jtxtIme1" alignment="1" min="-2" pref="202" max="-2" attributes="0"/>
-                          <Component id="jtxtIme2" alignment="1" min="-2" pref="202" max="-2" attributes="0"/>
-                          <Component id="jtxtIme3" alignment="1" min="-2" pref="202" max="-2" attributes="0"/>
+                          <Component id="jtxtEmail" alignment="1" min="-2" pref="202" max="-2" attributes="0"/>
+                          <Component id="jtxtUsername" alignment="1" min="-2" pref="202" max="-2" attributes="0"/>
+                          <Component id="jtxtPassword" alignment="1" min="-2" pref="202" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -53,17 +53,17 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jtxtIme1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jtxtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jtxtIme2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jtxtUsername" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jtxtIme3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jtxtPassword" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="51" max="32767" attributes="0"/>
@@ -81,21 +81,21 @@
         <Property name="text" type="java.lang.String" value="Ime korinsika: "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jtxtIme1">
+    <Component class="javax.swing.JTextField" name="jtxtEmail">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
         <Property name="text" type="java.lang.String" value="E-mail adresa:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jtxtIme2">
+    <Component class="javax.swing.JTextField" name="jtxtUsername">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="text" type="java.lang.String" value="Korisnicko ime:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jtxtIme3">
+    <Component class="javax.swing.JTextField" name="jtxtPassword">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
@@ -106,6 +106,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Dodaj korisnika"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtDodajActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -5,17 +5,25 @@
  */
 package forme;
 
+import domen.Korisnik;
+import java.util.List;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import model.TblModelKorisnik;
+
 /**
  *
  * @author vujke
  */
 public class DodajKorisnikaFrm extends javax.swing.JPanel {
 
+    TblModelKorisnik tbl;
     /**
      * Creates new form DodajKorisnikaFrm
      */
-    public DodajKorisnikaFrm() {
+    public DodajKorisnikaFrm(TblModelKorisnik tbl) {
         initComponents();
+        this.tbl = tbl;
     }
 
     /**
@@ -29,11 +37,11 @@ public class DodajKorisnikaFrm extends javax.swing.JPanel {
 
         jtxtIme = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jtxtIme1 = new javax.swing.JTextField();
+        jtxtEmail = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jtxtIme2 = new javax.swing.JTextField();
+        jtxtUsername = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jtxtIme3 = new javax.swing.JTextField();
+        jtxtPassword = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jbtDodaj = new javax.swing.JButton();
 
@@ -46,6 +54,11 @@ public class DodajKorisnikaFrm extends javax.swing.JPanel {
         jLabel4.setText("Password:");
 
         jbtDodaj.setText("Dodaj korisnika");
+        jbtDodaj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtDodajActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -66,9 +79,9 @@ public class DodajKorisnikaFrm extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jtxtIme, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtxtIme1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtxtIme2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtxtIme3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jtxtEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtxtUsername, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtxtPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(46, 46, 46))
         );
         layout.setVerticalGroup(
@@ -80,15 +93,15 @@ public class DodajKorisnikaFrm extends javax.swing.JPanel {
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtxtIme1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtxtIme2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtxtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtxtIme3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtxtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addComponent(jbtDodaj)
@@ -96,16 +109,59 @@ public class DodajKorisnikaFrm extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbtDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDodajActionPerformed
+        // TODO add your handling code here:
+        String ime = jtxtIme.getText();
+        String email = jtxtEmail.getText();
+        String username = jtxtUsername.getText();
+        String password = jtxtPassword.getText();
+        
+        if(ime.length() == 0){
+            JOptionPane.showMessageDialog(jtxtIme, "Unesite ime");
+        } else if(email.length() == 0){
+            JOptionPane.showMessageDialog(jtxtIme, "Unesite e-mail");
+        } else if(!isValidEmailAddress(email)){
+            JOptionPane.showMessageDialog(jtxtIme, "Unesite validan e-mail");
+        } else if(username.length() == 0){
+            JOptionPane.showMessageDialog(jtxtIme, "Unesite korisničko ime");
+        } else if(password.length() == 0) {
+            JOptionPane.showMessageDialog(jtxtIme, "Unesite šifru");
+        }
+        
+        Korisnik k = new Korisnik(ime, email, password, username);
+        Boolean neceMoci = false;
+        
+        List<Korisnik> korisnici = tbl.vratiListu();
+        for (Korisnik korisnik : korisnici) {
+            if(k.equals(korisnik)){
+                neceMoci = true;
+                JOptionPane.showConfirmDialog(jtxtIme, "U bazi već postoji"
+                        + " korisnik sa takvim korisničkim imenom"
+                        + "ili e-mail adresom.");
+            }
+        }
+        
+        if(neceMoci != true){
+            //dodajem u bazu 
+        }
+    }//GEN-LAST:event_jbtDodajActionPerformed
 
+
+    public boolean isValidEmailAddress(String email) {
+           String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+           java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+           java.util.regex.Matcher m = p.matcher(email);
+           return m.matches();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JButton jbtDodaj;
+    private javax.swing.JTextField jtxtEmail;
     private javax.swing.JTextField jtxtIme;
-    private javax.swing.JTextField jtxtIme1;
-    private javax.swing.JTextField jtxtIme2;
-    private javax.swing.JTextField jtxtIme3;
+    private javax.swing.JTextField jtxtPassword;
+    private javax.swing.JTextField jtxtUsername;
     // End of variables declaration//GEN-END:variables
 }
