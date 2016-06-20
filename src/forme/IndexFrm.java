@@ -263,7 +263,7 @@ public class IndexFrm extends javax.swing.JFrame {
         //  dialog.add(frm);
         //  dialog.pack();
         //  dialog.setVisible(true);
-        new UpravljanjeKorisnicimaFrm().setVisible(true);
+        //new UpravljanjeKorisnicimaFrm().setVisible(true);
     }//GEN-LAST:event_jmiUKorisnicimaActionPerformed
 
     /**

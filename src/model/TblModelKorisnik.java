@@ -16,7 +16,7 @@ import javax.swing.table.AbstractTableModel;
 public class TblModelKorisnik extends AbstractTableModel{
     
     List<Korisnik> korisnici;
-    String[] kolone = new String[]{"email","ime","username"};
+    String[] kolone = new String[]{"email","ime","username","status"};
 
     public TblModelKorisnik(List<Korisnik> korisnici) {
         this.korisnici = korisnici;
@@ -42,6 +42,7 @@ public class TblModelKorisnik extends AbstractTableModel{
             case 0: return kor.getEmail();
             case 1: return kor.getIme();
             case 2: return kor.getUsername();
+            case 3: return kor.getStatusKorisnika();
             default: return "n/a";
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
