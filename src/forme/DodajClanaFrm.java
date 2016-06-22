@@ -7,9 +7,12 @@ package forme;
 
 import domen.AbstractObjekat;
 import domen.Clan;
+import domen.Mesto;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import kontroler.Kontroler;
 
@@ -27,9 +30,9 @@ public class DodajClanaFrm extends javax.swing.JPanel {
         srediComboBox();
     }
     
-    public DodajClanaFrm(String mode, Clan clan) throws IOException, ClassNotFoundException {
+    public DodajClanaFrm(String mode, Clan clan, Mesto mesto) throws IOException, ClassNotFoundException {
         initComponents();
-        srediComboBox();
+        srediComboBoxUpdate(mesto);
         this.mode = mode;
         jbtDodaj.setText("Izmeni člana");
         jtxtIme.setText(clan.getIme());
@@ -295,6 +298,35 @@ public class DodajClanaFrm extends javax.swing.JPanel {
             jcbPaket.addItem(p);
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void srediComboBoxUpdate(Mesto mesto) {
+        try {
+            List<AbstractObjekat> mesta = new ArrayList<>();
+            List<AbstractObjekat> paketi = new ArrayList<>();
+            jcbMesto.addItem(mesto);
+            //(List<AbstractObjekat>) kontroler.vratiSvaMesta();
+            System.out.println("doslodo mesta");
+            mesta = Kontroler.vratiKontrolera().vratiSvaMesta();
+            System.out.println("Proslo mesta");
+            paketi = Kontroler.vratiKontrolera().vratiSvePakete();
+            System.out.println("Proslo pakete");
+            //paketi = Kontroler.vratiKontrolera();
+            // List<Mesto> listaMesta = (Mesto) mesta;
+            //lm = k.vratiSvaMesta();
+            for (AbstractObjekat m : mesta) {
+                jcbMesto.addItem(m);
+            }
+            
+            for (AbstractObjekat p : paketi) {
+                jcbPaket.addItem(p);
+            }
+            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        } catch (IOException ex) {
+            Logger.getLogger(DodajClanaFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DodajClanaFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     

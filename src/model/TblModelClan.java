@@ -79,4 +79,16 @@ public class TblModelClan extends AbstractTableModel {
     public Clan vratiClana(int rowIndex){
         return clanovi.get(rowIndex);
     }
+
+    public Mesto vratiMesto(String mestoid) {
+        for (AbstractObjekat mestoAb : mesta) {
+            Mesto m = (Mesto) mestoAb;
+            if(m.getMestoid().equals(mestoid)){
+                return m;
+            }
+        }
+        
+        return null;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
