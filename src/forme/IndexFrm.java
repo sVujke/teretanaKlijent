@@ -226,11 +226,17 @@ public class IndexFrm extends javax.swing.JFrame {
         String password = new String(passChar);
         
         if(username.length() == 0 && password.length() == 0){
-            JOptionPane.showMessageDialog(rootPane, "Unesite korisničko ime i šifru");
+            JOptionPane.showMessageDialog(rootPane, "Unesite korisničko "
+                    + "ime i šifru", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+            return;
         } else if (username.length() == 0){
-            JOptionPane.showMessageDialog(rootPane, "Unesite korisničko ime");
+            JOptionPane.showMessageDialog(rootPane, "Unesite korisničko ime"
+                    , "Greška!", JOptionPane.ERROR_MESSAGE, null);
+            return;
         } else if((password.length() == 0)){
-            JOptionPane.showMessageDialog(rootPane, "Unesite šifru");
+            JOptionPane.showMessageDialog(rootPane, "Unesite šifru"
+                    , "Greška!", JOptionPane.ERROR_MESSAGE, null);
+            return;
         }
         
         Korisnik k = new Korisnik("", "", password, username);
