@@ -123,6 +123,11 @@ public class IndexFrm extends javax.swing.JFrame {
 
         jbtClanovi2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jbtClanovi2.setText("Članovi");
+        jbtClanovi2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtClanovi2ActionPerformed(evt);
+            }
+        });
 
         jbtDolazak.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jbtDolazak.setText("Dolasci");
@@ -271,6 +276,12 @@ public class IndexFrm extends javax.swing.JFrame {
         //  dialog.setVisible(true);
         //new UpravljanjeKorisnicimaFrm().setVisible(true);
     }//GEN-LAST:event_jmiUKorisnicimaActionPerformed
+
+    private void jbtClanovi2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtClanovi2ActionPerformed
+        // TODO add your handling code here:
+        ClanFrm frm = new ClanFrm();
+        frm.setVisible(true);
+    }//GEN-LAST:event_jbtClanovi2ActionPerformed
 
     /**
      * @param args the command line arguments

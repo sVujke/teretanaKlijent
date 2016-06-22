@@ -5,6 +5,13 @@
  */
 package forme;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import start.KlijentStart;
+
 /**
  *
  * @author vujke
@@ -35,7 +42,7 @@ public class ClanFrm extends javax.swing.JFrame {
         jbtSacuvaj = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        txtPretraga = new javax.swing.JTextField();
+        jtxtPretraga = new javax.swing.JTextField();
         jbtPretrazi = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -53,7 +60,12 @@ public class ClanFrm extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jbtDodaj.setText("DodajClana");
+        jbtDodaj.setText("Dodaj člana");
+        jbtDodaj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtDodajActionPerformed(evt);
+            }
+        });
 
         jbtIzbriši.setText("Izmeni člana");
 
@@ -66,6 +78,11 @@ public class ClanFrm extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "imenu", "korisničkom imenu", "email-u" }));
 
         jbtPretrazi.setText("Pretraži");
+        jbtPretrazi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtPretraziActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -79,7 +96,7 @@ public class ClanFrm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
-                        .addComponent(txtPretraga, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jtxtPretraga, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -102,12 +119,11 @@ public class ClanFrm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtPretraga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jbtPretrazi)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtxtPretraga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtPretrazi)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -126,6 +142,33 @@ public class ClanFrm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbtPretraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPretraziActionPerformed
+        // TODO add your handling code here:
+        String pretraga = jtxtPretraga.getText().trim();
+
+        if (pretraga.length() == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Nije uneto ono što "
+                    + "treba pretražiti!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+            return;
+        }
+    }//GEN-LAST:event_jbtPretraziActionPerformed
+
+    private void jbtDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDodajActionPerformed
+        try {
+            // TODO add your handling code here:
+            DodajClanaFrm dodaj = new DodajClanaFrm();
+            //FrmDodajKorisnika frm = new FrmDodajKorisnika(tbl);
+            JDialog dialog = new JDialog(this, "Dodaj člana");
+            dialog.add(dodaj);
+            dialog.pack();
+            dialog.setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(ClanFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ClanFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jbtDodajActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,6 +200,8 @@ public class ClanFrm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                new KlijentStart().start();
+
                 new ClanFrm().setVisible(true);
             }
         });
@@ -172,6 +217,6 @@ public class ClanFrm extends javax.swing.JFrame {
     private javax.swing.JButton jbtIzbriši1;
     private javax.swing.JButton jbtPretrazi;
     private javax.swing.JButton jbtSacuvaj;
-    private javax.swing.JTextField txtPretraga;
+    private javax.swing.JTextField jtxtPretraga;
     // End of variables declaration//GEN-END:variables
 }

@@ -46,6 +46,19 @@ public class Kontroler {
        }
    }
    
+   public List<AbstractObjekat> vratiSvePakete() throws IOException, ClassNotFoundException{
+       KlijentTransfer kt = new KlijentTransfer();
+       kt.setOperacija(konstante.Konstante.VRATI_LISTU_PAKETA);
+       kom.posaljiZahtev(kt);
+       ServerTransfer st = kom.procitajOdgovor();
+       
+       if(st.getUspesnostOperacije() == 1){
+           return (List<AbstractObjekat>) st.getPodaci();
+       } else {
+           return null;
+       }
+   }
+   
     public Korisnik prijaviKorisnika(Korisnik k) throws IOException, ClassNotFoundException {
         KlijentTransfer kt = new KlijentTransfer();
         kt.setOperacija(konstante.Konstante.PRIJAVI_KORISNIKA);

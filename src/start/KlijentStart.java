@@ -19,6 +19,11 @@ import komunikacija.Komunikacija;
  */
 public class KlijentStart extends Thread {
 
+    public KlijentStart() {
+    }
+
+    
+    
     @Override
     public void run() {
         try {
