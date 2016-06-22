@@ -75,4 +75,8 @@ public class TblModelClan extends AbstractTableModel {
         
         return "N/A";
     }
+    
+    public Clan vratiClana(int rowIndex){
+        return clanovi.get(rowIndex);
+    }
 }

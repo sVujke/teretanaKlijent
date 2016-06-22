@@ -91,8 +91,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jbtIzbriši1" min="-2" pref="103" max="-2" attributes="0"/>
                       <Component id="jbtIzbriši" min="-2" pref="103" max="-2" attributes="0"/>
+                      <Component id="jbtIzmeni" min="-2" pref="103" max="-2" attributes="0"/>
                       <Component id="jbtDodaj" min="-2" pref="103" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -105,9 +105,9 @@
                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   <Component id="jbtDodaj" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                  <Component id="jbtIzbriši" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbtIzmeni" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="38" max="32767" attributes="0"/>
-                  <Component id="jbtIzbriši1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbtIzbriši" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -122,18 +122,21 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtDodajActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jbtIzbri&#x161;i">
+        <Component class="javax.swing.JButton" name="jbtIzmeni">
           <Properties>
             <Property name="text" type="java.lang.String" value="Izmeni &#x10d;lana"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtIzbri&#x161;iActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtIzmeniActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jbtIzbri&#x161;i1">
+        <Component class="javax.swing.JButton" name="jbtIzbri&#x161;i">
           <Properties>
             <Property name="text" type="java.lang.String" value="Izbri&#x161;i &#x10d;lana"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtIzbri&#x161;iActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

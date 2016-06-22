@@ -46,8 +46,8 @@ public class ClanFrm extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jbtDodaj = new javax.swing.JButton();
+        jbtIzmeni = new javax.swing.JButton();
         jbtIzbriši = new javax.swing.JButton();
-        jbtIzbriši1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jbtPretrazi = new javax.swing.JButton();
         jtxtPretraga = new javax.swing.JTextField();
@@ -76,14 +76,19 @@ public class ClanFrm extends javax.swing.JFrame {
             }
         });
 
-        jbtIzbriši.setText("Izmeni člana");
+        jbtIzmeni.setText("Izmeni člana");
+        jbtIzmeni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtIzmeniActionPerformed(evt);
+            }
+        });
+
+        jbtIzbriši.setText("Izbriši člana");
         jbtIzbriši.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtIzbrišiActionPerformed(evt);
             }
         });
-
-        jbtIzbriši1.setText("Izbriši člana");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -92,8 +97,8 @@ public class ClanFrm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jbtIzbriši1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtIzbriši, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtIzmeni, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -103,9 +108,9 @@ public class ClanFrm extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addComponent(jbtDodaj)
                 .addGap(37, 37, 37)
-                .addComponent(jbtIzbriši)
+                .addComponent(jbtIzmeni)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addComponent(jbtIzbriši1)
+                .addComponent(jbtIzbriši)
                 .addGap(25, 25, 25))
         );
 
@@ -209,11 +214,20 @@ public class ClanFrm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbtDodajActionPerformed
 
-    private void jbtIzbrišiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtIzbrišiActionPerformed
+    private void jbtIzmeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtIzmeniActionPerformed
         // TODO add your handling code here:
+        int red = jTable1.getSelectedRow();
+        
+        if(red == -1){
+            JOptionPane.showMessageDialog(rootPane, "Nije odabran član "
+                    + "kojeg treba izmeniti!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+            return;
+        }
+        
         try {
+            
             // TODO add your handling code here:
-            DodajClanaFrm dodaj = new DodajClanaFrm("update");
+            DodajClanaFrm dodaj = new DodajClanaFrm("update", tbl.vratiClana(red));
             //FrmDodajKorisnika frm = new FrmDodajKorisnika(tbl);
             JDialog dialog = new JDialog(this, "Izmeni člana");
             dialog.add(dodaj);
@@ -224,6 +238,10 @@ public class ClanFrm extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ClanFrm.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }//GEN-LAST:event_jbtIzmeniActionPerformed
+
+    private void jbtIzbrišiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtIzbrišiActionPerformed
+        // TODO add your handling code here:
     }//GEN-LAST:event_jbtIzbrišiActionPerformed
 
     /**
@@ -272,7 +290,7 @@ public class ClanFrm extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JButton jbtDodaj;
     private javax.swing.JButton jbtIzbriši;
-    private javax.swing.JButton jbtIzbriši1;
+    private javax.swing.JButton jbtIzmeni;
     private javax.swing.JButton jbtPretrazi;
     private javax.swing.JTextField jtxtPretraga;
     // End of variables declaration//GEN-END:variables

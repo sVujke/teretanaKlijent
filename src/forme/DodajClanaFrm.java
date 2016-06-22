@@ -6,6 +6,7 @@
 package forme;
 
 import domen.AbstractObjekat;
+import domen.Clan;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +27,16 @@ public class DodajClanaFrm extends javax.swing.JPanel {
         srediComboBox();
     }
     
-    public DodajClanaFrm(String mode) throws IOException, ClassNotFoundException {
+    public DodajClanaFrm(String mode, Clan clan) throws IOException, ClassNotFoundException {
         initComponents();
         srediComboBox();
         this.mode = mode;
         jbtDodaj.setText("Izmeni člana");
+        jtxtIme.setText(clan.getIme());
+        jtxtPrezime.setText(clan.getPrezime());
+        jtxtEmail.setText(clan.getEmail());
+        jtxtTelefon.setText(clan.getTelefon());
+        jtxtAdresa.setText(clan.getAdresa());
     }
     
     
@@ -181,6 +187,7 @@ public class DodajClanaFrm extends javax.swing.JPanel {
         String email = jtxtEmail.getText().trim();
         String tel = jtxtTelefon.getText().trim();
         String adresa = jtxtAdresa.getText().trim();
+        
         
         if(ime.length()==0){
             JOptionPane.showMessageDialog(jcbPaket, "Nije uneto ime člana!"
