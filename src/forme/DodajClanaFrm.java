@@ -17,7 +17,7 @@ import kontroler.Kontroler;
  * @author vujke
  */
 public class DodajClanaFrm extends javax.swing.JPanel {
-
+    String mode;
     /**
      * Creates new form DodajClanaFrm
      */
@@ -25,6 +25,17 @@ public class DodajClanaFrm extends javax.swing.JPanel {
         initComponents();
         srediComboBox();
     }
+    
+    public DodajClanaFrm(String mode) throws IOException, ClassNotFoundException {
+        initComponents();
+        srediComboBox();
+        this.mode = mode;
+        jbtDodaj.setText("Izmeni člana");
+    }
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
