@@ -49,7 +49,7 @@ public class TblModelClan extends AbstractTableModel {
             case 3: return clan.getEmail();
             case 4: return clan.getTelefon();
             case 5: return clan.getAdresa();
-            case 6: return clan.getMesto().getMestoid();
+            case 6: return  vratiNazivMesta(clan.getMesto().getMestoid());
             default: return "n/a";
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
