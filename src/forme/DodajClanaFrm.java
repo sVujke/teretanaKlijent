@@ -8,6 +8,7 @@ package forme;
 import domen.AbstractObjekat;
 import domen.Clan;
 import domen.Mesto;
+import domen.Paket;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import kontroler.Kontroler;
+import model.TblModelClan;
 
 /**
  *
@@ -23,18 +25,21 @@ import kontroler.Kontroler;
  */
 public class DodajClanaFrm extends javax.swing.JPanel {
     String mode;
+    TblModelClan tbl;
     /**
      * Creates new form DodajClanaFrm
      */
-    public DodajClanaFrm() throws IOException, ClassNotFoundException {
+    public DodajClanaFrm(TblModelClan tbl) throws IOException, ClassNotFoundException {
         initComponents();
         srediComboBox();
+        this.tbl = tbl;
     }
     
-    public DodajClanaFrm(String mode, Clan clan) throws IOException, ClassNotFoundException {
+    public DodajClanaFrm(TblModelClan tbl, String mode, Clan clan, Paket paket) throws IOException, ClassNotFoundException {
         initComponents();
-        srediComboBoxUpdate(clan.getMesto());
+        srediComboBoxUpdate(clan.getMesto(), paket);
         this.mode = mode;
+         this.tbl = tbl;
         jbtDodaj.setText("Izmeni člana");
         jtxtIme.setText(clan.getIme());
         jtxtPrezime.setText(clan.getPrezime());
@@ -234,6 +239,21 @@ public class DodajClanaFrm extends javax.swing.JPanel {
                     , "Greška!", JOptionPane.ERROR_MESSAGE, null);
             return;
         }
+        
+        Mesto mesto = (Mesto) jcbMesto.getSelectedItem();
+        Paket paket = (Paket) jcbPaket.getSelectedItem();
+        Clan clan = new Clan("0",ime, prezime, email, adresa, tel, mesto);
+        List<Object> parametri = new ArrayList<>();
+        parametri.add(clan);
+        parametri.add(paket);
+        try {
+            Kontroler.vratiKontrolera().zapamtiClana(parametri);
+            tbl.dodajUTabelu(clan);
+        } catch (IOException ex) {
+            Logger.getLogger(DodajClanaFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DodajClanaFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jbtDodajActionPerformed
 
 
@@ -301,7 +321,7 @@ public class DodajClanaFrm extends javax.swing.JPanel {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private void srediComboBoxUpdate(Mesto mesto) {
+    private void srediComboBoxUpdate(Mesto mesto, Paket paket) {
         try {
             List<AbstractObjekat> mesta = new ArrayList<>();
             List<AbstractObjekat> paketi = new ArrayList<>();
@@ -320,6 +340,8 @@ public class DodajClanaFrm extends javax.swing.JPanel {
             jcbPaket.setModel(new DefaultComboBoxModel(paketi.toArray()));
             
             jcbMesto.setSelectedItem(mesto);
+            System.out.println(paket);
+            jcbPaket.setSelectedItem(paket);
 //            for (AbstractObjekat m : mesta) {
 //                jcbMesto.addItem(m);
 //            }

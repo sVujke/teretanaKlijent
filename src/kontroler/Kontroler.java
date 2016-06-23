@@ -78,15 +78,15 @@ public class Kontroler {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    public AbstractObjekat zapamtiClana(AbstractObjekat clan) throws IOException, ClassNotFoundException{
+    public AbstractObjekat zapamtiClana(List<Object> parametri) throws IOException, ClassNotFoundException{
         KlijentTransfer kt = new KlijentTransfer();
         kt.setOperacija(konstante.Konstante.ZAPAMTI_CLANA);
-        kt.setParametar(clan);
+        kt.setParametar(parametri);
         kom.posaljiZahtev(kt);
         ServerTransfer st = kom.procitajOdgovor();
         if(st.getUspesnostOperacije() == 1){
             //System.out.println("evo me u kont klijenta 2");
-           return (Korisnik) (st.getPodaci());
+           return (Clan) (st.getPodaci());
        } else {
            return null;
        }

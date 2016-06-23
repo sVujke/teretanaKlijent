@@ -8,6 +8,7 @@ package forme;
 import domen.AbstractObjekat;
 import domen.Clan;
 import domen.Mesto;
+import domen.Paket;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -206,7 +207,7 @@ public class ClanFrm extends javax.swing.JFrame {
     private void jbtDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDodajActionPerformed
         try {
             // TODO add your handling code here:
-            DodajClanaFrm dodaj = new DodajClanaFrm();
+            DodajClanaFrm dodaj = new DodajClanaFrm(tbl);
             //FrmDodajKorisnika frm = new FrmDodajKorisnika(tbl);
             JDialog dialog = new JDialog(this, "Dodaj člana");
             dialog.add(dodaj);
@@ -232,7 +233,9 @@ public class ClanFrm extends javax.swing.JFrame {
         try {
 //            Mesto mesto = tbl.vratiMesto(tbl.vratiClana(red).getMesto().getMestoid());
             // TODO add your handling code here:
-            DodajClanaFrm dodaj = new DodajClanaFrm("update", tbl.vratiClana(red));
+            Paket p = (Paket) tbl.vratiPaket(tbl.vratiPaketId(tbl.vratiClana(red)));
+            System.out.println(p);
+            DodajClanaFrm dodaj = new DodajClanaFrm(tbl,"update", tbl.vratiClana(red),p);
             //FrmDodajKorisnika frm = new FrmDodajKorisnika(tbl);
             JDialog dialog = new JDialog(this, "Izmeni člana");
             dialog.add(dodaj);

@@ -106,7 +106,7 @@ public class TblModelClan extends AbstractTableModel {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private Object vratiPaketId(Clan clan) {
+    public Object vratiPaketId(Clan clan) {
         for (AbstractObjekat abs : listaIp) {
             //System.out.println("Clan: "+clan.vratiVrednostiPK());
             //System.out.println(clan.vratiParametre());
@@ -116,7 +116,7 @@ public class TblModelClan extends AbstractTableModel {
             System.out.println("akt: "+lip.isAktivan());
             System.out.println("1: " +lip.getClan().getClanId());
             System.out.println("2: "+ clan.getClanId());
-            if(clan.getClanId().equals(lip.getClan().getClanId()+"") &&
+            if(clan.equals(lip.getClan()) &&
                     (lip.isAktivan() == true)){
                 return lip.getPaket().getPaketId();
             }
@@ -127,7 +127,7 @@ public class TblModelClan extends AbstractTableModel {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private Object vratiPaket(Object vratiPaketId) {
+    public Object vratiPaket(Object vratiPaketId) {
         for (AbstractObjekat abs : paketi) {
             Paket p = (Paket) abs;
             if(p.getPaketId().equals(vratiPaketId)){
