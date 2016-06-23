@@ -131,6 +131,11 @@ public class IndexFrm extends javax.swing.JFrame {
 
         jbtDolazak.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jbtDolazak.setText("Dolasci");
+        jbtDolazak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtDolazakActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -282,6 +287,12 @@ public class IndexFrm extends javax.swing.JFrame {
         ClanFrm frm = new ClanFrm();
         frm.setVisible(true);
     }//GEN-LAST:event_jbtClanovi2ActionPerformed
+
+    private void jbtDolazakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDolazakActionPerformed
+        // TODO add your handling code here:
+        DolazakFrm dol = new DolazakFrm();
+        dol.setVisible(true);
+    }//GEN-LAST:event_jbtDolazakActionPerformed
 
     /**
      * @param args the command line arguments
