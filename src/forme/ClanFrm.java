@@ -317,6 +317,7 @@ public class ClanFrm extends javax.swing.JFrame {
             List<AbstractObjekat> clanovi;
             List<AbstractObjekat> mesta;
             List<AbstractObjekat> listaIp;
+            List<AbstractObjekat> paketi;
             //System.out.println("korisniciBaza");
             
             //System.out.println("pre vratiListuKorisnika");
@@ -326,7 +327,9 @@ public class ClanFrm extends javax.swing.JFrame {
             
             listaIp = Kontroler.vratiKontrolera().vratiListuIP();
             
-            tbl = new TblModelClan(clanovi, mesta, listaIp);
+            paketi = Kontroler.vratiKontrolera().vratiSvePakete();
+            
+            tbl = new TblModelClan(clanovi, mesta, listaIp, paketi);
             //System.out.println("posle vratiListuKorisnika");
 //            for (AbstractObjekat ao : clanovi) {
 //                Clan m = (Clan) ao;

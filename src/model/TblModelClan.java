@@ -9,6 +9,7 @@ import domen.AbstractObjekat;
 import domen.Clan;
 import domen.IstorijatPaketa;
 import domen.Mesto;
+import domen.Paket;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -23,11 +24,15 @@ public class TblModelClan extends AbstractTableModel {
     String[] kolone = new String[]{"ime","prezime","paket","e-mail","telefon","adresa","mesto"};
     List<AbstractObjekat> mesta = new ArrayList<>();
     List<AbstractObjekat> listaIp;
+    List<AbstractObjekat> paketi;
     
-    public TblModelClan(List<AbstractObjekat> clanovi, List<AbstractObjekat> mesta,List<AbstractObjekat> listaIp) {
+    public TblModelClan(List<AbstractObjekat> clanovi, 
+            List<AbstractObjekat> mesta,List<AbstractObjekat> listaIp,
+            List<AbstractObjekat> paketi) {
         this.clanovi = clanovi;
         this.mesta = mesta;
         this.listaIp = listaIp;
+        this.paketi = paketi;
     }
     
     @Override
@@ -48,7 +53,7 @@ public class TblModelClan extends AbstractTableModel {
         switch(columnIndex){
             case 0: return clan.getIme();
             case 1: return clan.getPrezime();
-            case 2: return vratiPaket(clan);
+            case 2: return vratiPaket(vratiPaketId(clan));
             case 3: return clan.getEmail();
             case 4: return clan.getTelefon();
             case 5: return clan.getAdresa();
@@ -101,18 +106,33 @@ public class TblModelClan extends AbstractTableModel {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private Object vratiPaket(Clan clan) {
+    private Object vratiPaketId(Clan clan) {
         for (AbstractObjekat abs : listaIp) {
-            System.out.println("Clan: "+clan.vratiVrednostiPK());
-            System.out.println(clan.vratiParametre());
+            //System.out.println("Clan: "+clan.vratiVrednostiPK());
+            //System.out.println(clan.vratiParametre());
             
             IstorijatPaketa lip = (IstorijatPaketa) abs;
             System.out.println("LIP: "+lip);
-            if(clan.getAdresa().equals(lip.getClan().getClanId()+"") &&
-                    lip.isAktivan() == true){
-                return lip;
+            System.out.println("akt: "+lip.isAktivan());
+            System.out.println("1: " +lip.getClan().getClanId());
+            System.out.println("2: "+ clan.getClanId());
+            if(clan.getClanId().equals(lip.getClan().getClanId()+"") &&
+                    (lip.isAktivan() == true)){
+                return lip.getPaket().getPaketId();
             }
-            System.out.println("nema");
+           // System.out.println("nema");
+        }
+        
+        return null;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private Object vratiPaket(Object vratiPaketId) {
+        for (AbstractObjekat abs : paketi) {
+            Paket p = (Paket) abs;
+            if(p.getPaketId().equals(vratiPaketId)){
+                return p;
+            }
         }
         
         return null;
