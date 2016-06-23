@@ -316,13 +316,17 @@ public class ClanFrm extends javax.swing.JFrame {
             
             List<AbstractObjekat> clanovi;
             List<AbstractObjekat> mesta;
+            List<AbstractObjekat> listaIp;
             //System.out.println("korisniciBaza");
             
             //System.out.println("pre vratiListuKorisnika");
             clanovi = Kontroler.vratiKontrolera().vratiListuClanova();
             
             mesta = Kontroler.vratiKontrolera().vratiSvaMesta();
-            tbl = new TblModelClan(clanovi, mesta);
+            
+            listaIp = Kontroler.vratiKontrolera().vratiListuIP();
+            
+            tbl = new TblModelClan(clanovi, mesta, listaIp);
             //System.out.println("posle vratiListuKorisnika");
 //            for (AbstractObjekat ao : clanovi) {
 //                Clan m = (Clan) ao;
