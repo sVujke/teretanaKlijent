@@ -18,11 +18,11 @@ import javax.swing.table.AbstractTableModel;
  */
 public class TblModelClan extends AbstractTableModel {
     
-    List<Clan> clanovi;
+    List<AbstractObjekat> clanovi;
     String[] kolone = new String[]{"ime","prezime","paket","e-mail","telefon","adresa","mesto"};
     List<AbstractObjekat> mesta = new ArrayList<>();
     
-    public TblModelClan(List<Clan> clanovi, List<AbstractObjekat> mesta) {
+    public TblModelClan(List<AbstractObjekat> clanovi, List<AbstractObjekat> mesta) {
         this.clanovi = clanovi;
         this.mesta = mesta;
     }
@@ -41,7 +41,7 @@ public class TblModelClan extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Clan clan = clanovi.get(rowIndex);
+        Clan clan = (Clan) clanovi.get(rowIndex);
         switch(columnIndex){
             case 0: return clan.getIme();
             case 1: return clan.getPrezime();
@@ -49,7 +49,7 @@ public class TblModelClan extends AbstractTableModel {
             case 3: return clan.getEmail();
             case 4: return clan.getTelefon();
             case 5: return clan.getAdresa();
-            case 6: return  vratiNazivMesta(clan.getMesto().getMestoid());
+            case 6: return  clan.getMesto();
             default: return "n/a";
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -77,7 +77,7 @@ public class TblModelClan extends AbstractTableModel {
     }
     
     public Clan vratiClana(int rowIndex){
-        return clanovi.get(rowIndex);
+        return (Clan) clanovi.get(rowIndex);
     }
 
     public Mesto vratiMesto(String mestoid) {
@@ -91,4 +91,12 @@ public class TblModelClan extends AbstractTableModel {
         return null;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public void filterForme(List<AbstractObjekat> clanovi) {
+        this.clanovi = clanovi;
+        fireTableDataChanged();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
 }

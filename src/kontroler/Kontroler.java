@@ -7,9 +7,12 @@ package kontroler;
 
 import domen.AbstractObjekat;
 import domen.Clan;
+import domen.Dolazak;
 import domen.Korisnik;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import komunikacija.Komunikacija;
 import transfer.KlijentTransfer;
 import transfer.ServerTransfer;
@@ -117,6 +120,7 @@ public class Kontroler {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    
      public AbstractObjekat zapamtiKorisnika(AbstractObjekat korisnik) throws IOException, ClassNotFoundException{
         KlijentTransfer kt = new KlijentTransfer();
         kt.setOperacija(konstante.Konstante.ZAPAMTI_KORISNIKA);
@@ -158,4 +162,52 @@ public class Kontroler {
        }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public AbstractObjekat vratiObjPoKljucu(String id) throws IOException, ClassNotFoundException {
+        
+            KlijentTransfer kt = new KlijentTransfer();
+            kt.setOperacija(konstante.Konstante.VRATI_CLANA_PK);
+            kt.setParametar(id);
+            kom.posaljiZahtev(kt);
+            ServerTransfer st = kom.procitajOdgovor();
+            
+            if(st.getUspesnostOperacije() == 1){
+                return (AbstractObjekat) st.getPodaci();
+            } else {
+                return null;
+            }
+            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+    }
+    
+    public List<AbstractObjekat> vratiListuDolazaka() throws IOException, ClassNotFoundException {
+       KlijentTransfer kt = new KlijentTransfer();
+       kt.setOperacija(konstante.Konstante.VRATI_LISTU_DOLAZAKA);
+       kom.posaljiZahtev(kt);
+       ServerTransfer st = kom.procitajOdgovor();
+       
+       if(st.getUspesnostOperacije() == 1){
+           return (List<AbstractObjekat>) st.getPodaci();
+       } else {
+           return null;
+       }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<AbstractObjekat> pretraziClanove(String pretraga) throws IOException, ClassNotFoundException {
+       KlijentTransfer kt = new KlijentTransfer();
+       kt.setOperacija(konstante.Konstante.PRETRAZI_CLANOVE);
+       kt.setParametar(pretraga);
+       kom.posaljiZahtev(kt);
+       ServerTransfer st = kom.procitajOdgovor();
+       
+       if(st.getUspesnostOperacije() == 1){
+           return (List<AbstractObjekat>) st.getPodaci();
+       } else {
+           return null;
+       }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
 }

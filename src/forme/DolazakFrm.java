@@ -6,6 +6,7 @@
 package forme;
 
 import domen.AbstractObjekat;
+import domen.Dolazak;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date; 
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import kontroler.Kontroler;
+import model.TblModelDolazak;
 /*import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;*/
@@ -22,11 +24,13 @@ import net.sourceforge.jdatepicker.impl.UtilDateModel;*/
  */
 public class DolazakFrm extends javax.swing.JFrame {
     // JDatePickerImpl datePicker;
+    TblModelDolazak tbl;
     /**
      * Creates new form DolazakFrm
      */
     public DolazakFrm() {
         initComponents();
+        srediTabelu();
         srediComboBox();
     }
 
@@ -210,6 +214,28 @@ public class DolazakFrm extends javax.swing.JFrame {
                 jcbClanovi.addItem(ao);
             }
             // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        } catch (IOException ex) {
+            Logger.getLogger(DolazakFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DolazakFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void srediTabelu() {
+        try {
+            List<AbstractObjekat> dolasci = new ArrayList<>();
+            tbl = new TblModelDolazak(new ArrayList<>());
+            //System.out.println("posle vratiListuKorisnika");
+            dolasci = Kontroler.vratiKontrolera().vratiListuDolazaka();
+            for (AbstractObjekat ao : dolasci) {
+                Dolazak m = (Dolazak) ao;
+                //System.out.println(m);
+                tbl.dodajDolazak(m);
+                //System.out.println("dodat");
+            }
+            
+            jTable1.setModel(tbl);
+            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         } catch (IOException ex) {
             Logger.getLogger(DolazakFrm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

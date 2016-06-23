@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import kontroler.Kontroler;
 
@@ -30,9 +31,9 @@ public class DodajClanaFrm extends javax.swing.JPanel {
         srediComboBox();
     }
     
-    public DodajClanaFrm(String mode, Clan clan, Mesto mesto) throws IOException, ClassNotFoundException {
+    public DodajClanaFrm(String mode, Clan clan) throws IOException, ClassNotFoundException {
         initComponents();
-        srediComboBoxUpdate(mesto);
+        srediComboBoxUpdate(clan.getMesto());
         this.mode = mode;
         jbtDodaj.setText("Izmeni člana");
         jtxtIme.setText(clan.getIme());
@@ -304,7 +305,8 @@ public class DodajClanaFrm extends javax.swing.JPanel {
         try {
             List<AbstractObjekat> mesta = new ArrayList<>();
             List<AbstractObjekat> paketi = new ArrayList<>();
-            jcbMesto.addItem(mesto);
+//            jcbMesto.addItem(mesto);
+            
             //(List<AbstractObjekat>) kontroler.vratiSvaMesta();
             System.out.println("doslodo mesta");
             mesta = Kontroler.vratiKontrolera().vratiSvaMesta();
@@ -314,13 +316,17 @@ public class DodajClanaFrm extends javax.swing.JPanel {
             //paketi = Kontroler.vratiKontrolera();
             // List<Mesto> listaMesta = (Mesto) mesta;
             //lm = k.vratiSvaMesta();
-            for (AbstractObjekat m : mesta) {
-                jcbMesto.addItem(m);
-            }
+            jcbMesto.setModel(new DefaultComboBoxModel(mesta.toArray()));
+            jcbPaket.setModel(new DefaultComboBoxModel(paketi.toArray()));
             
-            for (AbstractObjekat p : paketi) {
-                jcbPaket.addItem(p);
-            }
+            jcbMesto.setSelectedItem(mesto);
+//            for (AbstractObjekat m : mesta) {
+//                jcbMesto.addItem(m);
+//            }
+            
+//            for (AbstractObjekat p : paketi) {
+//                jcbPaket.addItem(p);
+//            }
             //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         } catch (IOException ex) {
             Logger.getLogger(DodajClanaFrm.class.getName()).log(Level.SEVERE, null, ex);

@@ -197,6 +197,15 @@ public class ClanFrm extends javax.swing.JFrame {
                     + "treba pretražiti!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
             return;
         }
+        
+        try {
+            List<AbstractObjekat> clanovi = Kontroler.vratiKontrolera().pretraziClanove(pretraga);
+            tbl.filterForme(clanovi);
+        } catch (IOException ex) {
+            Logger.getLogger(ClanFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ClanFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jbtPretraziActionPerformed
 
     private void jbtDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDodajActionPerformed
@@ -226,9 +235,9 @@ public class ClanFrm extends javax.swing.JFrame {
         }
         
         try {
-            Mesto mesto = tbl.vratiMesto(tbl.vratiClana(red).getMesto().getMestoid());
+//            Mesto mesto = tbl.vratiMesto(tbl.vratiClana(red).getMesto().getMestoid());
             // TODO add your handling code here:
-            DodajClanaFrm dodaj = new DodajClanaFrm("update", tbl.vratiClana(red), mesto);
+            DodajClanaFrm dodaj = new DodajClanaFrm("update", tbl.vratiClana(red));
             //FrmDodajKorisnika frm = new FrmDodajKorisnika(tbl);
             JDialog dialog = new JDialog(this, "Izmeni člana");
             dialog.add(dodaj);
@@ -299,22 +308,22 @@ public class ClanFrm extends javax.swing.JFrame {
     private void srediTabelu(){
         try {
             
-            List<AbstractObjekat> clanovi = new ArrayList<>();
-            List<AbstractObjekat> mesta = new ArrayList<>();
+            List<AbstractObjekat> clanovi;
+            List<AbstractObjekat> mesta;
             //System.out.println("korisniciBaza");
             
             //System.out.println("pre vratiListuKorisnika");
             clanovi = Kontroler.vratiKontrolera().vratiListuClanova();
             
             mesta = Kontroler.vratiKontrolera().vratiSvaMesta();
-            tbl = new TblModelClan(new ArrayList<>(), mesta);
+            tbl = new TblModelClan(clanovi, mesta);
             //System.out.println("posle vratiListuKorisnika");
-            for (AbstractObjekat ao : clanovi) {
-                Clan m = (Clan) ao;
-                //System.out.println(m);
-                tbl.dodajUTabelu(m);
-                //System.out.println("dodat");
-            }
+//            for (AbstractObjekat ao : clanovi) {
+//                Clan m = (Clan) ao;
+//                //System.out.println(m);
+//                tbl.dodajUTabelu(m);
+//                //System.out.println("dodat");
+//            }
             
             jTable1.setModel(tbl);
             //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
