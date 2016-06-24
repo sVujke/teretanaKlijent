@@ -6,14 +6,19 @@
 package forme;
 
 import domen.AbstractObjekat;
+import domen.Clan;
 import domen.Dolazak;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date; 
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import kontroler.Kontroler;
 import model.TblModelDolazak;
 import start.KlijentStart;
@@ -33,9 +38,9 @@ public class DolazakFrm extends javax.swing.JFrame {
      */
     public DolazakFrm() {
         initComponents();
-        System.out.println("pre tabele");
+        //System.out.println("pre tabele");
         srediTabelu();
-        System.out.println("pre comboboxa");
+        //System.out.println("pre comboboxa");
         srediComboBox();
     }
 
@@ -60,6 +65,11 @@ public class DolazakFrm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jbtEvidentiraj = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jcbClanovi2 = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
+        jbtFilter = new javax.swing.JButton();
+        jbtReset = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,30 +98,30 @@ public class DolazakFrm extends javax.swing.JFrame {
 
         jLabel3.setText("Član");
 
-        jLabel4.setText("Datum:");
+        jLabel4.setText("Datum (dd.mm.yyyy):");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
-                .addComponent(jtxtDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addComponent(jtxtDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jcbSmena, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(jLabel1)
-                .addGap(29, 29, 29)
-                .addComponent(jcbRadniDan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jcbSmena, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jcbRadniDan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jcbClanovi, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(46, 46, 46))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,6 +142,53 @@ public class DolazakFrm extends javax.swing.JFrame {
         );
 
         jbtEvidentiraj.setText("Evidentiraj dolazak");
+        jbtEvidentiraj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtEvidentirajActionPerformed(evt);
+            }
+        });
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel5.setText("Član");
+
+        jbtFilter.setText("Filtriraj po clanu");
+
+        jbtReset.setText("Filtriraj po clanu");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(20, Short.MAX_VALUE)
+                        .addComponent(jcbClanovi2, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jbtFilter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbtReset, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(101, 101, 101))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jcbClanovi2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jbtFilter)
+                .addGap(18, 18, 18)
+                .addComponent(jbtReset)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,10 +199,12 @@ public class DolazakFrm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(68, 68, 68)
-                        .addComponent(jbtEvidentiraj, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbtEvidentiraj, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,14 +212,51 @@ public class DolazakFrm extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtEvidentiraj, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(33, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jbtEvidentiraj, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbtEvidentirajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEvidentirajActionPerformed
+        // TODO add your handling code here
+        String datumUnet = jtxtDatum.getText();
+        Clan c = (Clan) jcbClanovi.getSelectedItem();
+        String smena = (String) jcbSmena.getSelectedItem();
+        String radniDan = (String) jcbRadniDan.getSelectedItem();
+        boolean radni = false;
+        
+        if(radniDan == "DA"){
+            radni = true;
+        }
+        Date datumDolaska;
+       DateFormat format = new SimpleDateFormat("dd.MM.yyyy.");
+        try {
+            datumDolaska = format.parse(datumUnet);
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Datum treba da bude u "
+                    + "'dd.MM.yyyy' formatu", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+            return;
+            //Logger.getLogger(DolazakFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Dolazak d = new Dolazak(radniDan, datumDolaska, smena, radni, c);
+        
+        try {
+            d = (Dolazak) Kontroler.vratiKontrolera().zapamtiDolazak(d);
+            JOptionPane.showMessageDialog(rootPane, "Evidencija uspešna!");
+        } catch (IOException ex) {
+            Logger.getLogger(DolazakFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DolazakFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jbtEvidentirajActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,11 +298,16 @@ public class DolazakFrm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton jbtEvidentiraj;
+    private javax.swing.JButton jbtFilter;
+    private javax.swing.JButton jbtReset;
     private javax.swing.JComboBox jcbClanovi;
+    private javax.swing.JComboBox jcbClanovi2;
     private javax.swing.JComboBox<String> jcbRadniDan;
     private javax.swing.JComboBox<String> jcbSmena;
     private javax.swing.JTextField jtxtDatum;
@@ -218,7 +319,9 @@ public class DolazakFrm extends javax.swing.JFrame {
             clanovi = Kontroler.vratiKontrolera().vratiListuClanova();
             
             System.out.println(clanovi.get(0));
+            jcbClanovi.addItem("");
             jcbClanovi.setModel(new DefaultComboBoxModel(clanovi.toArray()));
+            jcbClanovi2.setModel(new DefaultComboBoxModel(clanovi.toArray()));
             // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         } catch (IOException ex) {
             Logger.getLogger(DolazakFrm.class.getName()).log(Level.SEVERE, null, ex);
@@ -229,13 +332,13 @@ public class DolazakFrm extends javax.swing.JFrame {
 
     private void srediTabelu() {
         try {
-            System.out.println("SREDI TABELU");
+            //System.out.println("SREDI TABELU");
             List<AbstractObjekat> dolasci;
             
             //System.out.println("posle vratiListuKorisnika");
             dolasci = Kontroler.vratiKontrolera().vratiListuDolazaka();
-            System.out.println("SREDI TABELU: dolasci");
-            System.out.println("PRVI DOLAZAK: "+dolasci.get(0));
+            //System.out.println("SREDI TABELU: dolasci");
+            //System.out.println("PRVI DOLAZAK: "+dolasci.get(0));
             tbl = new TblModelDolazak(dolasci);
             
             
