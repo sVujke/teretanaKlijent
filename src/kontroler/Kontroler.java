@@ -223,5 +223,19 @@ public class Kontroler {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+     public AbstractObjekat zapamtiDolazak(AbstractObjekat dolazak) throws IOException, ClassNotFoundException{
+        KlijentTransfer kt = new KlijentTransfer();
+        kt.setOperacija(konstante.Konstante.ZAPAMTI_DOLAZAK);
+        kt.setParametar(dolazak);
+        kom.posaljiZahtev(kt);
+        ServerTransfer st = kom.procitajOdgovor();
+        if(st.getUspesnostOperacije() == 1){
+            //System.out.println("evo me u kont klijenta 2");
+           return (Dolazak) (st.getPodaci());
+       } else {
+           return null;
+       }
+    }
+
     
 }

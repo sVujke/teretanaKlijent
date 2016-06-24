@@ -246,11 +246,12 @@ public class DolazakFrm extends javax.swing.JFrame {
             //Logger.getLogger(DolazakFrm.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        Dolazak d = new Dolazak(radniDan, datumDolaska, smena, radni, c);
+        Dolazak d = new Dolazak("0", datumDolaska, smena, radni, c);
         
         try {
             d = (Dolazak) Kontroler.vratiKontrolera().zapamtiDolazak(d);
             JOptionPane.showMessageDialog(rootPane, "Evidencija uspešna!");
+            tbl.resetTabela(Kontroler.vratiKontrolera().vratiListuDolazaka());
         } catch (IOException ex) {
             Logger.getLogger(DolazakFrm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

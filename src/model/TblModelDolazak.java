@@ -77,9 +77,13 @@ public class TblModelDolazak extends AbstractTableModel{
     }
 
     private Object ulepsajDatum(Date datum) {
-        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yy");
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         Date date = datum;
         return dateFormat.format(date);
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void resetTabela(List<AbstractObjekat> dolasci){
+        this.dolasci = dolasci;
     }
     }
