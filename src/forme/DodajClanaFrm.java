@@ -242,7 +242,7 @@ public class DodajClanaFrm extends javax.swing.JPanel {
         
         Mesto mesto = (Mesto) jcbMesto.getSelectedItem();
         Paket paket = (Paket) jcbPaket.getSelectedItem();
-        Clan clan = new Clan("0",ime, prezime, email, adresa, tel, mesto);
+        Clan clan = new Clan(null,ime, prezime, email, adresa, tel, mesto);
         List<Object> parametri = new ArrayList<>();
         parametri.add(clan);
         parametri.add(paket);
