@@ -248,7 +248,8 @@ public class DodajClanaFrm extends javax.swing.JPanel {
         parametri.add(paket);
         try {
             Kontroler.vratiKontrolera().zapamtiClana(parametri);
-            tbl.dodajUTabelu(clan);
+            List<AbstractObjekat> clList = Kontroler.vratiKontrolera().vratiListuClanova();
+            tbl.filterForme(clList);
         } catch (IOException ex) {
             Logger.getLogger(DodajClanaFrm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
