@@ -160,6 +160,11 @@ public class DolazakFrm extends javax.swing.JFrame {
         });
 
         jbtReset.setText("Resetuj tabelu");
+        jbtReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtResetActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -277,6 +282,17 @@ public class DolazakFrm extends javax.swing.JFrame {
             Logger.getLogger(DolazakFrm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jbtFilterActionPerformed
+
+    private void jbtResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtResetActionPerformed
+        try {
+            // TODO add your handling code here:
+            tbl.resetTabela(Kontroler.vratiKontrolera().vratiListuDolazaka());
+        } catch (IOException ex) {
+            Logger.getLogger(DolazakFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DolazakFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jbtResetActionPerformed
 
     /**
      * @param args the command line arguments
