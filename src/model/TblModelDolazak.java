@@ -43,21 +43,17 @@ public class TblModelDolazak extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        try {
+        
             Dolazak dol = (Dolazak) dolasci.get(rowIndex);
             switch(columnIndex){
                 case 0: return dol.getDatum();
                 case 1: return dol.getSmena();
                 case 2: return daNe(dol.isRadniDan());
-                case 3: return Kontroler.vratiKontrolera().vratiObjPoKljucu(dol.getClan().getClanId());
+                case 3: return dol.getClan();
                 default: return "n/a";
                 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }   } catch (IOException ex) {
-            Logger.getLogger(TblModelDolazak.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(TblModelDolazak.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    return "n/a";
+           }  
+    //return "n/a";
 }
 
     private String daNe(boolean radniDan) {
@@ -68,5 +64,12 @@ public class TblModelDolazak extends AbstractTableModel{
     public void dodajDolazak(Dolazak d){
         dolasci.add(d);
     }
+    
+    
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    @Override
+    public String getColumnName(int column) {
+        return kolone[column];//super.getColumnName(column); //To change body of generated methods, choose Tools | Templates.
+    }
     }
