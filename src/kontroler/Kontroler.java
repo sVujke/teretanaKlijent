@@ -237,5 +237,19 @@ public class Kontroler {
        }
     }
 
+    public List<AbstractObjekat> vratiListuPretplata() throws IOException, ClassNotFoundException {
+       KlijentTransfer kt = new KlijentTransfer();
+       kt.setOperacija(konstante.Konstante.VRATI_LISTU_PRETPLATA);
+       kom.posaljiZahtev(kt);
+       ServerTransfer st = kom.procitajOdgovor();
+       
+       if(st.getUspesnostOperacije() == 1){
+           return (List<AbstractObjekat>) st.getPodaci();
+       } else {
+           return null;
+       }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
 }

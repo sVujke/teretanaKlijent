@@ -273,14 +273,15 @@ public class DolazakFrm extends javax.swing.JFrame {
         // TODO add your handling code here:
         Clan c = (Clan) jcbClanovi2.getSelectedItem();
         
-        tbl.filtrirajPoClanu(c);
+        //tbl.filtrirajPoClanu(c);
         try {
-            tbl.postaviDolaske(Kontroler.vratiKontrolera().vratiListuDolazaka());
+            tbl.resetTabela(Kontroler.vratiKontrolera().vratiListuDolazaka());
         } catch (IOException ex) {
             Logger.getLogger(DolazakFrm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DolazakFrm.class.getName()).log(Level.SEVERE, null, ex);
         }
+        tbl.filtrirajPoClanu(c);
     }//GEN-LAST:event_jbtFilterActionPerformed
 
     private void jbtResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtResetActionPerformed
