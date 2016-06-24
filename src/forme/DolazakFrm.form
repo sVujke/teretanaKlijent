@@ -278,10 +278,13 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Filtriraj po clanu"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtFilterActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jbtReset">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Filtriraj po clanu"/>
+            <Property name="text" type="java.lang.String" value="Resetuj tabelu"/>
           </Properties>
         </Component>
       </SubComponents>

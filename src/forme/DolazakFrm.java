@@ -153,8 +153,13 @@ public class DolazakFrm extends javax.swing.JFrame {
         jLabel5.setText("Član");
 
         jbtFilter.setText("Filtriraj po clanu");
+        jbtFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtFilterActionPerformed(evt);
+            }
+        });
 
-        jbtReset.setText("Filtriraj po clanu");
+        jbtReset.setText("Resetuj tabelu");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -258,6 +263,20 @@ public class DolazakFrm extends javax.swing.JFrame {
             Logger.getLogger(DolazakFrm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jbtEvidentirajActionPerformed
+
+    private void jbtFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtFilterActionPerformed
+        // TODO add your handling code here:
+        Clan c = (Clan) jcbClanovi2.getSelectedItem();
+        
+        tbl.filtrirajPoClanu(c);
+        try {
+            tbl.postaviDolaske(Kontroler.vratiKontrolera().vratiListuDolazaka());
+        } catch (IOException ex) {
+            Logger.getLogger(DolazakFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DolazakFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jbtFilterActionPerformed
 
     /**
      * @param args the command line arguments

@@ -6,11 +6,13 @@
 package model;
 
 import domen.AbstractObjekat;
+import domen.Clan;
 import domen.Dolazak;
 import domen.Korisnik;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -85,5 +87,28 @@ public class TblModelDolazak extends AbstractTableModel{
     
     public void resetTabela(List<AbstractObjekat> dolasci){
         this.dolasci = dolasci;
+        fireTableDataChanged();
+    }
+
+    public void filtrirajPoClanu(Clan c) {
+        List<AbstractObjekat> dolasciF = new ArrayList<>();
+        for (AbstractObjekat abs : dolasci) {
+            Dolazak d = (Dolazak) abs;
+            if(d.getClan().equals(c)){
+                dolasciF.add(abs);
+            }
+        }
+        
+        if(dolasci!=null){
+        dolasci = dolasciF;
+        fireTableDataChanged();
+        }
+        
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void postaviDolaske(List<AbstractObjekat> vratiListuDolazaka) {
+        //dolasci = vratiListuDolazaka;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     }
