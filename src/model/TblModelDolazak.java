@@ -9,6 +9,9 @@ import domen.AbstractObjekat;
 import domen.Dolazak;
 import domen.Korisnik;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,7 +49,7 @@ public class TblModelDolazak extends AbstractTableModel{
         
             Dolazak dol = (Dolazak) dolasci.get(rowIndex);
             switch(columnIndex){
-                case 0: return dol.getDatum();
+                case 0: return ulepsajDatum(dol.getDatum());
                 case 1: return dol.getSmena();
                 case 2: return daNe(dol.isRadniDan());
                 case 3: return dol.getClan();
@@ -71,5 +74,12 @@ public class TblModelDolazak extends AbstractTableModel{
     @Override
     public String getColumnName(int column) {
         return kolone[column];//super.getColumnName(column); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private Object ulepsajDatum(Date datum) {
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yy");
+        Date date = datum;
+        return dateFormat.format(date);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     }
