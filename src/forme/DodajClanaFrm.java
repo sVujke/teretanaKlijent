@@ -247,9 +247,11 @@ public class DodajClanaFrm extends javax.swing.JPanel {
         parametri.add(clan);
         parametri.add(paket);
         try {
-            Kontroler.vratiKontrolera().zapamtiClana(parametri);
+            AbstractObjekat clanServer = Kontroler.vratiKontrolera().zapamtiClana(parametri);
+            System.out.println(clanServer);
             List<AbstractObjekat> clList = Kontroler.vratiKontrolera().vratiListuClanova();
             tbl.filterForme(clList);
+            
         } catch (IOException ex) {
             Logger.getLogger(DodajClanaFrm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -281,7 +283,7 @@ public class DodajClanaFrm extends javax.swing.JPanel {
         if(tel.length()<7){
             return false;
         }
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < tel.length(); i++) {
             if(!validacijaTelefona.contains(tel.charAt(i)+"")){
                 return false;
             }

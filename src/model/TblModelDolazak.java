@@ -5,6 +5,7 @@
  */
 package model;
 
+import domen.AbstractObjekat;
 import domen.Dolazak;
 import domen.Korisnik;
 import java.io.IOException;
@@ -20,10 +21,10 @@ import kontroler.Kontroler;
  */
 public class TblModelDolazak extends AbstractTableModel{
 
-    List<Dolazak> dolasci;
+    List<AbstractObjekat> dolasci;
     String[] kolone = new String[]{"datum","smena","radni dan","član"};
 
-    public TblModelDolazak(List<Dolazak> dolasci) {
+    public TblModelDolazak(List<AbstractObjekat> dolasci) {
         this.dolasci = dolasci;
     }
     
@@ -43,7 +44,7 @@ public class TblModelDolazak extends AbstractTableModel{
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         try {
-            Dolazak dol = dolasci.get(rowIndex);
+            Dolazak dol = (Dolazak) dolasci.get(rowIndex);
             switch(columnIndex){
                 case 0: return dol.getDatum();
                 case 1: return dol.getSmena();

@@ -290,7 +290,9 @@ public class IndexFrm extends javax.swing.JFrame {
 
     private void jbtDolazakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDolazakActionPerformed
         // TODO add your handling code here:
+        System.out.println("pre konstruktora");
         DolazakFrm dol = new DolazakFrm();
+        System.out.println("posle konstruktora");
         dol.setVisible(true);
     }//GEN-LAST:event_jbtDolazakActionPerformed
 

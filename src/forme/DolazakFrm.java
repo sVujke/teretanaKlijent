@@ -13,8 +13,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import kontroler.Kontroler;
 import model.TblModelDolazak;
+import start.KlijentStart;
 /*import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;*/
@@ -25,12 +27,15 @@ import net.sourceforge.jdatepicker.impl.UtilDateModel;*/
 public class DolazakFrm extends javax.swing.JFrame {
     // JDatePickerImpl datePicker;
     TblModelDolazak tbl;
+     //List<AbstractObjekat> clanovi;
     /**
      * Creates new form DolazakFrm
      */
     public DolazakFrm() {
         initComponents();
+        System.out.println("pre tabele");
         srediTabelu();
+        System.out.println("pre comboboxa");
         srediComboBox();
     }
 
@@ -112,8 +117,7 @@ public class DolazakFrm extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtxtDatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jcbSmena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1)
@@ -121,7 +125,9 @@ public class DolazakFrm extends javax.swing.JFrame {
                         .addComponent(jcbClanovi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel3)
                         .addComponent(jLabel2))
-                    .addComponent(jLabel4))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jtxtDatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4)))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
@@ -186,6 +192,7 @@ public class DolazakFrm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                new KlijentStart().start();
                 new DolazakFrm().setVisible(true);
             }
         });
@@ -207,12 +214,11 @@ public class DolazakFrm extends javax.swing.JFrame {
 
     private void srediComboBox() {
         try {
-            List<AbstractObjekat> clanovi = new ArrayList<>();
+            List<AbstractObjekat> clanovi;
             clanovi = Kontroler.vratiKontrolera().vratiListuClanova();
             
-            for (AbstractObjekat ao : clanovi) {
-                jcbClanovi.addItem(ao);
-            }
+            System.out.println(clanovi.get(0));
+            jcbClanovi.setModel(new DefaultComboBoxModel(clanovi.toArray()));
             // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         } catch (IOException ex) {
             Logger.getLogger(DolazakFrm.class.getName()).log(Level.SEVERE, null, ex);
@@ -223,16 +229,15 @@ public class DolazakFrm extends javax.swing.JFrame {
 
     private void srediTabelu() {
         try {
-            List<AbstractObjekat> dolasci = new ArrayList<>();
-            tbl = new TblModelDolazak(new ArrayList<>());
+            System.out.println("SREDI TABELU");
+            List<AbstractObjekat> dolasci;
+            
             //System.out.println("posle vratiListuKorisnika");
             dolasci = Kontroler.vratiKontrolera().vratiListuDolazaka();
-            for (AbstractObjekat ao : dolasci) {
-                Dolazak m = (Dolazak) ao;
-                //System.out.println(m);
-                tbl.dodajDolazak(m);
-                //System.out.println("dodat");
-            }
+            System.out.println("SREDI TABELU: dolasci");
+            System.out.println("PRVI DOLAZAK: "+dolasci.get(0));
+            tbl = new TblModelDolazak(dolasci);
+            
             
             jTable1.setModel(tbl);
             //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
