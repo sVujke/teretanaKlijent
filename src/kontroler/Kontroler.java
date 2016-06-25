@@ -9,6 +9,7 @@ import domen.AbstractObjekat;
 import domen.Clan;
 import domen.Dolazak;
 import domen.Korisnik;
+import domen.Pretplata;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -250,6 +251,20 @@ public class Kontroler {
        }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
+    public AbstractObjekat zapamtiPretplatu(AbstractObjekat pretplata) throws IOException, ClassNotFoundException{
+        KlijentTransfer kt = new KlijentTransfer();
+        kt.setOperacija(konstante.Konstante.ZAPAMTI_PRETPLATU);
+        kt.setParametar(pretplata);
+        kom.posaljiZahtev(kt);
+        ServerTransfer st = kom.procitajOdgovor();
+        if(st.getUspesnostOperacije() == 1){
+            //System.out.println("evo me u kont klijenta 2");
+           return (AbstractObjekat) (st.getPodaci());
+       } else {
+           return null;
+       }
+    }
+    
     
 }

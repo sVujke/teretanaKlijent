@@ -7,7 +7,10 @@ package forme;
 
 import domen.AbstractObjekat;
 import domen.Clan;
+import domen.Paket;
+import domen.Pretplata;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +27,8 @@ import start.KlijentStart;
 public class PretplataFrm extends javax.swing.JFrame {
     TblModelPretplata tblP;
     TblModelClanMini tblC;
+    Clan odabraniClan;
+    Paket odabraniPaket;
     
     /**
      * Creates new form PretplataFrm
@@ -31,8 +36,14 @@ public class PretplataFrm extends javax.swing.JFrame {
     public PretplataFrm() {
         initComponents();
         jtxtEmail.setEditable(false);
+        jtxtEmail.setFocusable(false);
         jtxtImePrezime.setEditable(false);
+        jtxtImePrezime.setFocusable(false);
         jtxtPaket.setEditable(false);
+        jtxtPaket.setFocusable(false);
+        jtxtClanId.setEditable(false);
+         jtxtClanId.setFocusable(false);
+       
         srediTabele();
     }
 
@@ -52,6 +63,8 @@ public class PretplataFrm extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jbtFilter = new javax.swing.JButton();
         jbtFilter1 = new javax.swing.JButton();
+        jtxtClanId = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jbtFilter2 = new javax.swing.JButton();
         jbtFilter3 = new javax.swing.JButton();
@@ -101,30 +114,45 @@ public class PretplataFrm extends javax.swing.JFrame {
 
         jbtFilter1.setText("Resetuj tabelu");
 
+        jLabel5.setText("ID člana:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jbtFilter1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(jtxtClanId, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbtFilter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbtFilter1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(46, Short.MAX_VALUE)
-                .addComponent(jbtFilter)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtxtClanId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(18, 18, 18)
+                .addComponent(jbtFilter)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbtFilter1)
-                .addGap(24, 24, 24))
+                .addGap(17, 17, 17))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jbtFilter2.setText("Pretraži članove");
+        jbtFilter2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtFilter2ActionPerformed(evt);
+            }
+        });
 
         jbtFilter3.setText("Resetuj tabelu");
         jbtFilter3.addActionListener(new java.awt.event.ActionListener() {
@@ -182,6 +210,11 @@ public class PretplataFrm extends javax.swing.JFrame {
         jLabel3.setText("Paket:");
 
         jbtEvidentirajUplatu.setText("Evidentiraj ");
+        jbtEvidentirajUplatu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtEvidentirajUplatuActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Pretplata se evidentira po današnjem datumu!");
@@ -243,7 +276,7 @@ public class PretplataFrm extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55)
+                        .addGap(52, 52, 52)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(65, Short.MAX_VALUE))
@@ -258,9 +291,9 @@ public class PretplataFrm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -288,12 +321,44 @@ public class PretplataFrm extends javax.swing.JFrame {
         }
         
         Clan c = tblC.vratiClana(red);
-        
+        odabraniClan = c;
         jtxtImePrezime.setText(c.getIme()+" "+c.getPrezime());
         jtxtEmail.setText(c.getEmail());
-        jtxtPaket.setText(tblC.vratiPaket(tblC.vratiPaketId(c)).toString());
+        odabraniPaket = (Paket) tblC.vratiPaket(tblC.vratiPaketId(c));
+        jtxtPaket.setText(odabraniPaket.toString());
+        jtxtClanId.setText(c.getClanId());
             
     }//GEN-LAST:event_jbtOdabraniActionPerformed
+
+    private void jbtEvidentirajUplatuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEvidentirajUplatuActionPerformed
+        // TODO add your handling code here:
+        
+        Pretplata pre = new Pretplata("0", danasnjiDatum(), odabraniClan, odabraniPaket);
+        
+        try {
+            Pretplata p = (Pretplata) Kontroler.vratiKontrolera().zapamtiPretplatu(pre);
+            JOptionPane.showMessageDialog(rootPane, "Pretplata je uspešno dodata!");
+            List<AbstractObjekat> pretplate = Kontroler.vratiKontrolera().vratiListuPretplata();
+            tblP.resetTabele(pretplate);
+        } catch (IOException ex) {
+            Logger.getLogger(PretplataFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PretplataFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jbtEvidentirajUplatuActionPerformed
+
+    private void jbtFilter2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtFilter2ActionPerformed
+        // TODO add your handling code here:
+        String pretragaClanova = jtxtPretraga.getText();
+        try {
+            List<AbstractObjekat> clanovi = Kontroler.vratiKontrolera().pretraziClanove(pretragaClanova);
+            tblC.filterForme(clanovi);
+        } catch (IOException ex) {
+            Logger.getLogger(PretplataFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PretplataFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jbtFilter2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -337,6 +402,7 @@ public class PretplataFrm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -350,6 +416,7 @@ public class PretplataFrm extends javax.swing.JFrame {
     private javax.swing.JButton jbtFilter2;
     private javax.swing.JButton jbtFilter3;
     private javax.swing.JButton jbtOdabrani;
+    private javax.swing.JTextField jtxtClanId;
     private javax.swing.JTextField jtxtEmail;
     private javax.swing.JTextField jtxtImePrezime;
     private javax.swing.JTextField jtxtPaket;
@@ -399,5 +466,10 @@ public class PretplataFrm extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(PretplataFrm.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private Date danasnjiDatum() {
+        return new Date();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

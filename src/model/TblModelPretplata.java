@@ -71,4 +71,14 @@ public class TblModelPretplata extends AbstractTableModel{
         return dateFormat.format(date);
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public void resetTabele() {
+        
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void resetTabele(List<AbstractObjekat> pretplate) {
+        this.pretplate = pretplate; 
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
