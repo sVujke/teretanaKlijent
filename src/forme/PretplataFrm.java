@@ -420,7 +420,15 @@ public class PretplataFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtFilterActionPerformed
 
     private void jbtFilter1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtFilter1ActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+
+            tblP.resetTabele(Kontroler.vratiKontrolera().vratiListuPretplata());
+        } catch (IOException ex) {
+            Logger.getLogger(PretplataFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PretplataFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jbtFilter1ActionPerformed
 
     /**

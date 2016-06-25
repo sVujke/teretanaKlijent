@@ -96,7 +96,7 @@ public class Kontroler {
     }
     
     public AbstractObjekat obrisiClana(AbstractObjekat clan) throws IOException, ClassNotFoundException{
-         KlijentTransfer kt = new KlijentTransfer();
+        KlijentTransfer kt = new KlijentTransfer();
         kt.setOperacija(konstante.Konstante.OBRISI_CLANA);
         kt.setParametar(clan);
         kom.posaljiZahtev(kt);

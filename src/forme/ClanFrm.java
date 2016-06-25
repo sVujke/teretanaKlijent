@@ -249,7 +249,26 @@ public class ClanFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtIzmeniActionPerformed
 
     private void jbtIzbrišiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtIzbrišiActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here
+        int red = jTable1.getSelectedRow();
+        
+        if(red == -1){
+            JOptionPane.showMessageDialog(rootPane, "Nije odabran član "
+                    + "kojeg treba izbrisati!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+            return;
+        }
+        
+        Clan clan = tbl.vratiClana(red);
+        
+        try {
+            Clan obrisan = (Clan) Kontroler.vratiKontrolera().obrisiClana(clan);
+            List<AbstractObjekat> clanovi = Kontroler.vratiKontrolera().vratiListuClanova();
+            tbl.filterForme(clanovi);
+        } catch (IOException ex) {
+            Logger.getLogger(ClanFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ClanFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jbtIzbrišiActionPerformed
 
     private void jbtResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtResetActionPerformed
