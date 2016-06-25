@@ -20,6 +20,11 @@ public class TblModelTermin extends AbstractTableModel{
     List<AbstractObjekat> termini;
     String[] kolone = new String[]{"smena", "radni dan"};
 
+    public TblModelTermin(List<AbstractObjekat> termini) {
+        this.termini = termini;
+    }
+    
+    
     @Override
     public int getRowCount() {
         return termini.size();

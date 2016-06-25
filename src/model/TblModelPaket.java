@@ -21,6 +21,11 @@ public class TblModelPaket extends AbstractTableModel {
     List<AbstractObjekat> paketi;
     String[] kolone = new String[]{"naziv", "cena"};
 
+    public TblModelPaket(List<AbstractObjekat> paketi) {
+        this.paketi = paketi;
+    }
+
+        
     @Override
     public int getRowCount() {
         return paketi.size();
