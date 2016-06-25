@@ -27,8 +27,8 @@ import start.KlijentStart;
 public class PretplataFrm extends javax.swing.JFrame {
     TblModelPretplata tblP;
     TblModelClanMini tblC;
-    Clan odabraniClan;
-    Paket odabraniPaket;
+    Clan odabraniClan = null;
+    Paket odabraniPaket= null;
     
     /**
      * Creates new form PretplataFrm
@@ -319,15 +319,15 @@ public class PretplataFrm extends javax.swing.JFrame {
 
     private void jbtOdabraniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtOdabraniActionPerformed
         // TODO add your handling code here:
-        int red;
+        int red = jTable1.getSelectedRow();
         
-        try{
-            red = jTable1.getSelectedRow();
-        } catch(Exception eks){
-            JOptionPane.showMessageDialog(rootPane, "Nije uneto ono što "
-                    + "treba pretražiti!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+        if(red == -1){
+            JOptionPane.showMessageDialog(rootPane, "Nije odabran član "
+                    + "u tabeli!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+            
             return;
         }
+            
         
         Clan c = tblC.vratiClana(red);
         odabraniClan = c;
@@ -341,6 +341,12 @@ public class PretplataFrm extends javax.swing.JFrame {
 
     private void jbtEvidentirajUplatuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEvidentirajUplatuActionPerformed
         // TODO add your handling code here:
+        
+        if(odabraniClan == null){
+            JOptionPane.showMessageDialog(rootPane, "Nije odabran član! "
+                    , "Greška!", JOptionPane.ERROR_MESSAGE, null);
+            return;
+        }
         
         Pretplata pre = new Pretplata("0", danasnjiDatum(), odabraniClan, odabraniPaket);
         
