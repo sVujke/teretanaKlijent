@@ -231,6 +231,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Pretra&#x17e;i"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtPretraziActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jtxtPretraga">
         </Component>
@@ -238,6 +241,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Resetuj tabelu"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtResetujActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

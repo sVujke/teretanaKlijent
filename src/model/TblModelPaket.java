@@ -6,7 +6,7 @@
 package model;
 
 import domen.AbstractObjekat;
-import domen.Clan;
+
 import domen.Korisnik;
 import domen.Paket;
 import java.util.List;
@@ -57,6 +57,9 @@ public class TblModelPaket extends AbstractTableModel {
         //return super.getColumnName(column); //To change body of generated methods, choose Tools | Templates.
     }
     
-    
+    public void resetTabele(List<AbstractObjekat> paketi){
+        this.paketi = paketi;
+                fireTableDataChanged();
+    }
 
 }

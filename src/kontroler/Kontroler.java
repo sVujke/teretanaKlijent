@@ -286,6 +286,25 @@ public class Kontroler {
        }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public List<AbstractObjekat> pretraziPakete(String pretraga) throws IOException, ClassNotFoundException {
+       KlijentTransfer kt = new KlijentTransfer();
+//       List<AbstractObjekat> parametri = new ArrayList<>();
+//       parametri.add(pak);
+//       parametri.add(cln);
+       kt.setOperacija(konstante.Konstante.PRETRAZI_PAKETE);
+       kt.setParametar(pretraga);
+       kom.posaljiZahtev(kt);
+       ServerTransfer st = kom.procitajOdgovor();
+       
+       if(st.getUspesnostOperacije() == 1){
+           System.out.println("HvVATAM ODGOVOR");
+           return (List<AbstractObjekat>) st.getPodaci();
+       } else {
+           return null;
+       }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }

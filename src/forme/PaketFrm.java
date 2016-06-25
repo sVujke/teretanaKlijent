@@ -132,8 +132,18 @@ public class PaketFrm extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jbtPretrazi.setText("Pretraži");
+        jbtPretrazi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtPretraziActionPerformed(evt);
+            }
+        });
 
         jbtResetuj.setText("Resetuj tabelu");
+        jbtResetuj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtResetujActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -211,6 +221,31 @@ public class PaketFrm extends javax.swing.JFrame {
     private void jbtIzmeniPaketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtIzmeniPaketActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtIzmeniPaketActionPerformed
+
+    private void jbtPretraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPretraziActionPerformed
+        // TODO add your handling code here:
+        String pretraga = jtxtPretraga.getText();
+        try {
+            List<AbstractObjekat> pretplate = Kontroler.vratiKontrolera().pretraziPakete(pretraga);
+            tblP.resetTabele(pretplate);
+        } catch (IOException ex) {
+            Logger.getLogger(PaketFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PaketFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jbtPretraziActionPerformed
+
+    private void jbtResetujActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtResetujActionPerformed
+        try {
+            // TODO add your handling code here:
+            List<AbstractObjekat> pretplate = Kontroler.vratiKontrolera().vratiSvePakete();
+            tblP.resetTabele(pretplate);
+        } catch (IOException ex) {
+            Logger.getLogger(PaketFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PaketFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jbtResetujActionPerformed
 
     /**
      * @param args the command line arguments
