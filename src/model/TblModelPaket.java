@@ -7,7 +7,8 @@ package model;
 
 import domen.AbstractObjekat;
 import domen.Clan;
-import domen.Termin;
+import domen.Korisnik;
+import domen.Paket;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -15,14 +16,14 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author vujke
  */
-public class TblModelTermin extends AbstractTableModel{
+public class TblModelPaket extends AbstractTableModel {
 
-    List<AbstractObjekat> termini;
-    String[] kolone = new String[]{"smena", "radni dan"};
+    List<AbstractObjekat> paketi;
+    String[] kolone = new String[]{"naziv", "cena"};
 
     @Override
     public int getRowCount() {
-        return termini.size();
+        return paketi.size();
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -33,12 +34,12 @@ public class TblModelTermin extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Termin termin = (Termin) termini.get(rowIndex);
+        Paket paket = (Paket) paketi.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return termin.getSmena();
+                return paket.getNaziv();
             case 1:
-                return termin.isRadniDan(); 
+                return paket.getCena()+" RSD";
             default:
                 return "n/a";
         }
@@ -47,8 +48,10 @@ public class TblModelTermin extends AbstractTableModel{
 
     @Override
     public String getColumnName(int column) {
-        return kolone[column];//return super.getColumnName(column); //To change body of generated methods, choose Tools | Templates.
+        return kolone[column];
+        //return super.getColumnName(column); //To change body of generated methods, choose Tools | Templates.
     }
     
     
+
 }
