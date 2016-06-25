@@ -253,8 +253,11 @@ public class DodajClanaFrm extends javax.swing.JPanel {
         
         parametri.add(ip);
         try {
-            AbstractObjekat clanServer = Kontroler.vratiKontrolera().zapamtiClana(parametri);
-            System.out.println(clanServer);
+            Clan clanServer = (Clan) Kontroler.vratiKontrolera().zapamtiClana(parametri);
+            JOptionPane.showMessageDialog(jcbPaket, "Uspesno dodat clan: "+clan.getIme());
+            //System.out.println(clanServer);
+            List<AbstractObjekat> clanovi = Kontroler.vratiKontrolera().vratiListuClanova();
+            tbl.filterForme(clanovi);
 //            List<AbstractObjekat> clList = Kontroler.vratiKontrolera().vratiListuClanova();
 //            tbl.filterForme(clList);
             
