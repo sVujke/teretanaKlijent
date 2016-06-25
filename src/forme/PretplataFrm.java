@@ -10,6 +10,7 @@ import domen.Clan;
 import domen.Paket;
 import domen.Pretplata;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -27,11 +28,12 @@ import start.KlijentStart;
  * @author vujke
  */
 public class PretplataFrm extends javax.swing.JFrame {
+
     TblModelPretplata tblP;
     TblModelClanMini tblC;
     Clan odabraniClan = null;
-    Paket odabraniPaket= null;
-    
+    Paket odabraniPaket = null;
+
     /**
      * Creates new form PretplataFrm
      */
@@ -44,12 +46,11 @@ public class PretplataFrm extends javax.swing.JFrame {
         jtxtPaket.setEditable(false);
         jtxtPaket.setFocusable(false);
         jtxtClanId.setEditable(false);
-         jtxtClanId.setFocusable(false);
-       
+        jtxtClanId.setFocusable(false);
+
         srediComboBox();
         srediTabele();
-        
-        
+
     }
 
     /**
@@ -70,7 +71,7 @@ public class PretplataFrm extends javax.swing.JFrame {
         jbtFilter1 = new javax.swing.JButton();
         jtxtClanId = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        jcbPaketi = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
         jbtFilter2 = new javax.swing.JButton();
         jbtFilter3 = new javax.swing.JButton();
@@ -124,10 +125,15 @@ public class PretplataFrm extends javax.swing.JFrame {
         });
 
         jbtFilter1.setText("Resetuj tabelu");
+        jbtFilter1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtFilter1ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("ID člana:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbPaketi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -142,7 +148,7 @@ public class PretplataFrm extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
                         .addComponent(jtxtClanId, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jcbPaketi, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -153,7 +159,7 @@ public class PretplataFrm extends javax.swing.JFrame {
                     .addComponent(jtxtClanId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jcbPaketi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jbtFilter)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -326,8 +332,8 @@ public class PretplataFrm extends javax.swing.JFrame {
         List<AbstractObjekat> clanovi;
         try {
             // TODO add your handling code here
-           clanovi =  Kontroler.vratiKontrolera().vratiListuClanova();
-           tblC.filterForme(clanovi);
+            clanovi = Kontroler.vratiKontrolera().vratiListuClanova();
+            tblC.filterForme(clanovi);
         } catch (IOException ex) {
             Logger.getLogger(PretplataFrm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -338,36 +344,34 @@ public class PretplataFrm extends javax.swing.JFrame {
     private void jbtOdabraniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtOdabraniActionPerformed
         // TODO add your handling code here:
         int red = jTable1.getSelectedRow();
-        
-        if(red == -1){
+
+        if (red == -1) {
             JOptionPane.showMessageDialog(rootPane, "Nije odabran član "
                     + "u tabeli!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
-            
+
             return;
         }
-            
-        
+
         Clan c = tblC.vratiClana(red);
         odabraniClan = c;
-        jtxtImePrezime.setText(c.getIme()+" "+c.getPrezime());
+        jtxtImePrezime.setText(c.getIme() + " " + c.getPrezime());
         jtxtEmail.setText(c.getEmail());
         odabraniPaket = (Paket) tblC.vratiPaket(tblC.vratiPaketId(c));
         jtxtPaket.setText(odabraniPaket.toString());
         jtxtClanId.setText(c.getClanId());
-            
+
     }//GEN-LAST:event_jbtOdabraniActionPerformed
 
     private void jbtEvidentirajUplatuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEvidentirajUplatuActionPerformed
         // TODO add your handling code here:
-        
-        if(odabraniClan == null){
-            JOptionPane.showMessageDialog(rootPane, "Nije odabran član! "
-                    , "Greška!", JOptionPane.ERROR_MESSAGE, null);
+
+        if (odabraniClan == null) {
+            JOptionPane.showMessageDialog(rootPane, "Nije odabran član! ", "Greška!", JOptionPane.ERROR_MESSAGE, null);
             return;
         }
-        
+
         Pretplata pre = new Pretplata("0", danasnjiDatum(), odabraniClan, odabraniPaket);
-        
+
         try {
             Pretplata p = (Pretplata) Kontroler.vratiKontrolera().zapamtiPretplatu(pre);
             JOptionPane.showMessageDialog(rootPane, "Pretplata je uspešno dodata!");
@@ -395,7 +399,29 @@ public class PretplataFrm extends javax.swing.JFrame {
 
     private void jbtFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtFilterActionPerformed
         // TODO add your handling code here:
+        Paket pak = (Paket) jcbPaketi.getSelectedItem();
+        Clan cln = odabraniClan;
+        List<AbstractObjekat> listaPretplata;
+//       List<Pretplata> lp = new ArrayList<>();
+
+        try {
+            listaPretplata = Kontroler.vratiKontrolera().pretraziPretplate(pak, cln);
+//            for (AbstractObjekat abs : listaPretplata) {
+//                Pretplata ppppp = (Pretplata) abs;
+//                lp.add(ppppp);
+//            }
+            tblP.resetTabele(listaPretplata);
+        } catch (IOException ex) {
+            Logger.getLogger(PretplataFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PretplataFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_jbtFilterActionPerformed
+
+    private void jbtFilter1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtFilter1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtFilter1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -427,7 +453,7 @@ public class PretplataFrm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
+
                 new KlijentStart().start();
                 new PretplataFrm().setVisible(true);
             }
@@ -435,7 +461,6 @@ public class PretplataFrm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -454,6 +479,7 @@ public class PretplataFrm extends javax.swing.JFrame {
     private javax.swing.JButton jbtFilter2;
     private javax.swing.JButton jbtFilter3;
     private javax.swing.JButton jbtOdabrani;
+    private javax.swing.JComboBox jcbPaketi;
     private javax.swing.JTextField jtxtClanId;
     private javax.swing.JTextField jtxtEmail;
     private javax.swing.JTextField jtxtImePrezime;
@@ -462,42 +488,36 @@ public class PretplataFrm extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void srediTabele() {
-            List<AbstractObjekat> pretplate;
-            List<AbstractObjekat> clanovi;
-            List<AbstractObjekat> paketi;
-            List<AbstractObjekat> listaIp;
-            
-            try {
-                
-                
-                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                
-                listaIp = Kontroler.vratiKontrolera().vratiListuIP();
-                
-                clanovi = Kontroler.vratiKontrolera().vratiListuClanova();
-                paketi = Kontroler.vratiKontrolera().vratiSvePakete();
-                
-                tblC = new TblModelClanMini(clanovi, listaIp, paketi);
-                jTable1.setModel(tblC);
-                ///tblP = new TblModelPretplata(pretplate, paketi, clanovi);
-                
-                
-                //jTable2.setModel(tblP);
-                
-                
-            } catch (IOException ex) {
-                Logger.getLogger(PretplataFrm.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(PretplataFrm.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
+        List<AbstractObjekat> pretplate;
+        List<AbstractObjekat> clanovi;
+        List<AbstractObjekat> paketi;
+        List<AbstractObjekat> listaIp;
+
+        try {
+
+            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            listaIp = Kontroler.vratiKontrolera().vratiListuIP();
+
+            clanovi = Kontroler.vratiKontrolera().vratiListuClanova();
+            paketi = Kontroler.vratiKontrolera().vratiSvePakete();
+
+            tblC = new TblModelClanMini(clanovi, listaIp, paketi);
+            jTable1.setModel(tblC);
+            ///tblP = new TblModelPretplata(pretplate, paketi, clanovi);
+
+            //jTable2.setModel(tblP);
+        } catch (IOException ex) {
+            Logger.getLogger(PretplataFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PretplataFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         try {
             pretplate = Kontroler.vratiKontrolera().vratiListuPretplata();
-            paketi = Kontroler.vratiKontrolera().vratiSvePakete();
-            clanovi = Kontroler.vratiKontrolera().vratiListuClanova();
-            tblP = new TblModelPretplata(pretplate, paketi, clanovi);
-            
-            
+//            paketi = Kontroler.vratiKontrolera().vratiSvePakete();
+//            clanovi = Kontroler.vratiKontrolera().vratiListuClanova();
+            tblP = new TblModelPretplata(pretplate);
+
             jTable2.setModel(tblP);
         } catch (IOException ex) {
             Logger.getLogger(PretplataFrm.class.getName()).log(Level.SEVERE, null, ex);
@@ -515,7 +535,7 @@ public class PretplataFrm extends javax.swing.JFrame {
         List<AbstractObjekat> pakets;
         try {
             pakets = Kontroler.vratiKontrolera().vratiSvePakete();
-            jComboBox1.setModel(new DefaultComboBoxModel(pakets.toArray()));
+            jcbPaketi.setModel(new DefaultComboBoxModel(pakets.toArray()));
             //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         } catch (IOException ex) {
             Logger.getLogger(PretplataFrm.class.getName()).log(Level.SEVERE, null, ex);

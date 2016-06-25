@@ -9,8 +9,10 @@ import domen.AbstractObjekat;
 import domen.Clan;
 import domen.Dolazak;
 import domen.Korisnik;
+import domen.Paket;
 import domen.Pretplata;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -264,6 +266,25 @@ public class Kontroler {
        } else {
            return null;
        }
+    }
+
+    public List<AbstractObjekat> pretraziPretplate(Paket pak, Clan cln) throws IOException, ClassNotFoundException {
+       KlijentTransfer kt = new KlijentTransfer();
+       List<AbstractObjekat> parametri = new ArrayList<>();
+       parametri.add(pak);
+       parametri.add(cln);
+       kt.setOperacija(konstante.Konstante.PRETRAZI_PRETPLATE);
+       kt.setParametar(parametri);
+       kom.posaljiZahtev(kt);
+       ServerTransfer st = kom.procitajOdgovor();
+       
+       if(st.getUspesnostOperacije() == 1){
+           System.out.println("HvVATAM ODGOVOR");
+           return (List<AbstractObjekat>) st.getPodaci();
+       } else {
+           return null;
+       }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

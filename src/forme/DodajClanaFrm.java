@@ -7,10 +7,12 @@ package forme;
 
 import domen.AbstractObjekat;
 import domen.Clan;
+import domen.IstorijatPaketa;
 import domen.Mesto;
 import domen.Paket;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -245,12 +247,16 @@ public class DodajClanaFrm extends javax.swing.JPanel {
         Clan clan = new Clan(null,ime, prezime, email, adresa, tel, mesto);
         List<Object> parametri = new ArrayList<>();
         parametri.add(clan);
-        parametri.add(paket);
+        Date datumSys = new Date();
+        IstorijatPaketa ip = new IstorijatPaketa(true, datumSys, clan, paket, "0");
+        //parametri.add(paket);
+        
+        parametri.add(ip);
         try {
             AbstractObjekat clanServer = Kontroler.vratiKontrolera().zapamtiClana(parametri);
             System.out.println(clanServer);
-            List<AbstractObjekat> clList = Kontroler.vratiKontrolera().vratiListuClanova();
-            tbl.filterForme(clList);
+//            List<AbstractObjekat> clList = Kontroler.vratiKontrolera().vratiListuClanova();
+//            tbl.filterForme(clList);
             
         } catch (IOException ex) {
             Logger.getLogger(DodajClanaFrm.class.getName()).log(Level.SEVERE, null, ex);

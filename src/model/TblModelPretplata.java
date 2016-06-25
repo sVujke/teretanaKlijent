@@ -6,6 +6,7 @@
 package model;
 
 import domen.AbstractObjekat;
+import domen.Clan;
 import domen.Dolazak;
 import domen.Pretplata;
 import java.text.DateFormat;
@@ -23,13 +24,13 @@ public class TblModelPretplata extends AbstractTableModel{
     List<AbstractObjekat> pretplate;
     String[] kolone = new String[]{"datum","clan","paket","iznos"};
     //List<AbstractObjekat> listaIp;
-    List<AbstractObjekat> paketi;
-    List<AbstractObjekat> clanovi;
+//    List<AbstractObjekat> paketi;
+//    List<AbstractObjekat> clanovi;
 
-    public TblModelPretplata(List<AbstractObjekat> pretplate, List<AbstractObjekat> paketi, List<AbstractObjekat> clanovi) {
+    public TblModelPretplata(List<AbstractObjekat> pretplate) {
         this.pretplate = pretplate;
-        this.paketi = paketi;
-        this.clanovi = clanovi;
+//        this.paketi = paketi;
+//        this.clanovi = clanovi;
     }
     
     
@@ -46,6 +47,12 @@ public class TblModelPretplata extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
+        System.out.println(pretplate.get(rowIndex).getClass());
+        if(pretplate.get(rowIndex).getClass().equals(Clan.class)){
+            
+            Clan c = (Clan) pretplate.get(rowIndex);
+            System.out.println(c);
+        }
         Pretplata p = (Pretplata) pretplate.get(rowIndex);
             switch(columnIndex){
                 case 0: return ulepsajDatum(p.getDatum());
@@ -79,6 +86,7 @@ public class TblModelPretplata extends AbstractTableModel{
 
     public void resetTabele(List<AbstractObjekat> pretplate) {
         this.pretplate = pretplate; 
+        fireTableDataChanged();
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
