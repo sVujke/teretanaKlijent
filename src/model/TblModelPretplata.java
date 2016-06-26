@@ -22,7 +22,7 @@ import javax.swing.table.AbstractTableModel;
 public class TblModelPretplata extends AbstractTableModel{
     
     List<AbstractObjekat> pretplate;
-    String[] kolone = new String[]{"datum","clan","paket","iznos"};
+    String[] kolone = new String[]{"datum","clan","paket"};
     //List<AbstractObjekat> listaIp;
 //    List<AbstractObjekat> paketi;
 //    List<AbstractObjekat> clanovi;
@@ -58,7 +58,7 @@ public class TblModelPretplata extends AbstractTableModel{
                 case 0: return ulepsajDatum(p.getDatum());
                 case 1: return p.getClan();
                 case 2: return p.getPaket();
-                case 3: return p.getPaket().getCena();
+//                case 3: return p.getPaket().getCena();
                 default: return "n/a";
                 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
            }  

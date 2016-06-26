@@ -14,16 +14,35 @@ import java.util.List;
  * @author vujke
  */
 public class Test {
-    List<AbstractObjekat> mesta = new ArrayList<>();
+//    List<AbstractObjekat> mesta = new ArrayList<>();
 //    for (AbstractObjekat m : mesta) {
 //            System.out.println(m);
 //        }
 //    String broj = null;
 //    int br =  Integer.parseInt(broj);
     
+//    public static void main(String[] args) {
+//        String broj = null;
+//    int br =  Integer.parseInt(broj);
+//        System.out.println("Broj: " + br);
+//    }
+    
+    
     public static void main(String[] args) {
-        String broj = null;
-    int br =  Integer.parseInt(broj);
-        System.out.println("Broj: " + br);
+        int x = 0;
+        
+        while(x<3){
+            x++;
+            if(true){
+                System.out.println("5");
+                continue;
+            }
+            
+            if(true){
+                System.out.println("6");
+                continue;
+            }
+        }
     }
+            
 }

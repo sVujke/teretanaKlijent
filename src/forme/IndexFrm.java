@@ -117,9 +117,19 @@ public class IndexFrm extends javax.swing.JFrame {
 
         jbtPaketi.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jbtPaketi.setText("Paketi");
+        jbtPaketi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtPaketiActionPerformed(evt);
+            }
+        });
 
         jbtPretplata.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jbtPretplata.setText("Pretplate");
+        jbtPretplata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtPretplataActionPerformed(evt);
+            }
+        });
 
         jbtClanovi2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jbtClanovi2.setText("Članovi");
@@ -267,8 +277,10 @@ public class IndexFrm extends javax.swing.JFrame {
             }
         } catch (IOException ex) {
             Logger.getLogger(IndexFrm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showConfirmDialog(rootPane, ex.getMessage());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(IndexFrm.class.getName()).log(Level.SEVERE, null, ex);
+             JOptionPane.showConfirmDialog(rootPane, ex.getMessage());
         }
     }//GEN-LAST:event_jbtPrijavaActionPerformed
 
@@ -295,6 +307,18 @@ public class IndexFrm extends javax.swing.JFrame {
         //System.out.println("posle konstruktora");
         dol.setVisible(true);
     }//GEN-LAST:event_jbtDolazakActionPerformed
+
+    private void jbtPretplataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPretplataActionPerformed
+        // TODO add your handling code here:
+        PretplataFrm pfr = new PretplataFrm();
+        pfr.setVisible(true);
+    }//GEN-LAST:event_jbtPretplataActionPerformed
+
+    private void jbtPaketiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPaketiActionPerformed
+        // TODO add your handling code here:
+        PaketFrm pak = new PaketFrm();
+        pak.setVisible(true);
+    }//GEN-LAST:event_jbtPaketiActionPerformed
 
     /**
      * @param args the command line arguments

@@ -228,6 +228,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Paketi"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtPaketiActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jbtPretplata">
           <Properties>
@@ -236,6 +239,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Pretplate"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtPretplataActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jbtClanovi2">
           <Properties>
