@@ -54,9 +54,6 @@ public class IndexFrm extends javax.swing.JFrame {
         jbtClanovi2 = new javax.swing.JButton();
         jbtDolazak = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu2 = new javax.swing.JMenu();
-        jmiTest = new javax.swing.JMenuItem();
-        jmiUKorisnicima = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -176,26 +173,6 @@ public class IndexFrm extends javax.swing.JFrame {
                 .addGap(22, 22, 22))
         );
 
-        jMenu2.setText("Edit");
-
-        jmiTest.setText("Test");
-        jmiTest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiTestActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jmiTest);
-
-        jmiUKorisnicima.setText("Upravljanje korisnicima");
-        jmiUKorisnicima.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiUKorisnicimaActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jmiUKorisnicima);
-
-        jMenuBar1.add(jMenu2);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -222,22 +199,11 @@ public class IndexFrm extends javax.swing.JFrame {
                 .addComponent(jlblUlogovan, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jmiTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiTestActionPerformed
-        try {
-            // TODO add your handling code here:
-            new TestFrm().setVisible(true);
-        } catch (IOException ex) {
-            Logger.getLogger(IndexFrm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(IndexFrm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jmiTestActionPerformed
 
     private void jbtPrijavaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPrijavaActionPerformed
         // TODO add your handling code here:
@@ -283,16 +249,6 @@ public class IndexFrm extends javax.swing.JFrame {
              JOptionPane.showConfirmDialog(rootPane, ex.getMessage());
         }
     }//GEN-LAST:event_jbtPrijavaActionPerformed
-
-    private void jmiUKorisnicimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiUKorisnicimaActionPerformed
-        // TODO add your handling code here:
-        //UpravljanjeKorisnicimaFrm frm = new ();
-        //JDialog dialog = new JDialog(this, "Dodaj zadatak");
-        //  dialog.add(frm);
-        //  dialog.pack();
-        //  dialog.setVisible(true);
-        //new UpravljanjeKorisnicimaFrm().setVisible(true);
-    }//GEN-LAST:event_jmiUKorisnicimaActionPerformed
 
     private void jbtClanovi2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtClanovi2ActionPerformed
         // TODO add your handling code here:
@@ -360,7 +316,6 @@ public class IndexFrm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -372,8 +327,6 @@ public class IndexFrm extends javax.swing.JFrame {
     private javax.swing.JToggleButton jbtPrijava;
     private javax.swing.JLabel jlabelPrijaviteSe;
     private javax.swing.JLabel jlblUlogovan;
-    private javax.swing.JMenuItem jmiTest;
-    private javax.swing.JMenuItem jmiUKorisnicima;
     private javax.swing.JTextField jtxtUserName;
     // End of variables declaration//GEN-END:variables
 }

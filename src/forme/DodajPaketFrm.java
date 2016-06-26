@@ -5,16 +5,22 @@
  */
 package forme;
 
+import domen.AbstractObjekat;
 import domen.Clan;
 import domen.Paket;
+import domen.Termin;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableColumn;
+import kontroler.Kontroler;
 import model.TblModelClan;
 import model.TblModelTermin;
 
@@ -149,6 +155,11 @@ public class DodajPaketFrm extends javax.swing.JPanel {
         jLabel3.setText("Broj termina:");
 
         jbtSacuvaj.setText("Sačuvaj");
+        jbtSacuvaj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtSacuvajActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -243,6 +254,65 @@ public class DodajPaketFrm extends javax.swing.JPanel {
         brojTermina();
     }//GEN-LAST:event_jbtDodajActionPerformed
 
+    private void jbtSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSacuvajActionPerformed
+        // TODO add your handling code here:
+        String brTermina = jtxtBrTermina.getText();
+        try{
+            int brTer = Integer.parseInt(brTermina);
+            if(brTer < 1){
+               JOptionPane.showMessageDialog(this, "Nije uneto ni jedan "
+                    + "termin", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+                return; 
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Nije uneto ni jedan "
+                    + "termin", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+            return;
+        }
+        
+        
+        
+        String nazivPaketa = jtxtNaziv.getText().toLowerCase();
+        String cena = jtxtCena.getText();
+        
+        if(nazivPaketa.length() == 0){
+            JOptionPane.showMessageDialog(this, "Nije uneto ime "
+                    + "paketa", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+            return;
+        }
+        
+        if(imaVecTajPaket(nazivPaketa)){
+            JOptionPane.showMessageDialog(this, "Već postoji paket sa "
+                    + "tim imenom", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+            return;
+        }
+        
+        if(cena.length()==0){
+            JOptionPane.showMessageDialog(this, "Nije uneta cena paketa!"
+                    , "Greška!", JOptionPane.ERROR_MESSAGE, null);
+            return;
+        }
+        
+        if(nijeBroj(cena)){
+            JOptionPane.showMessageDialog(this, "Cena nije uneta u "
+                    + "validnom formatu!"
+                    , "Greška!", JOptionPane.ERROR_MESSAGE, null);
+            return;
+        }
+        
+        int j = 0;
+        List<Termin> termini = tbl.vratiListuTermina();
+        for (Termin termin : termini) {
+            j++;
+            if(termin.getSmena().equals("odaberi smenu")){
+                JOptionPane.showMessageDialog(this, "Nije odabrana smena "
+                    + "za termin na poziciji: "+j+""
+                    , "Greška!", JOptionPane.ERROR_MESSAGE, null);
+            return;
+            }
+        }
+    }//GEN-LAST:event_jbtSacuvajActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -264,7 +334,7 @@ public class DodajPaketFrm extends javax.swing.JPanel {
     private void srediTabelu() {
         System.out.println("MODE: " + mode);
         if (mode.equals("create")) {
-            System.out.println("usao");
+//            System.out.println("usao");
             tbl = new TblModelTermin(new ArrayList<>());
             jtblTermini.setModel(tbl);
         }
@@ -289,24 +359,59 @@ public class DodajPaketFrm extends javax.swing.JPanel {
         String[] smene = {"prva", "druga", "treca"};
 
         JComboBox cbSmena = new JComboBox(smene);
-        System.out.println(cbSmena);
+//        System.out.println(cbSmena);
 
         //cbPredmet.addItem();
         TableColumn tcSmene = jtblTermini.getColumnModel().getColumn(0);
-        System.out.println(jtblTermini.getColumnModel());
-        System.out.println(tcSmene);
+//        System.out.println(jtblTermini.getColumnModel());
+//        System.out.println(tcSmene);
         tcSmene.setCellEditor(new DefaultCellEditor(cbSmena));
         
         String[] radniDani = {"DA", "NE"};
         
         JComboBox cbRadniDani = new JComboBox(radniDani);
-        System.out.println(cbRadniDani);
+//        System.out.println(cbRadniDani);
 
         //cbPredmet.addItem();
         TableColumn tcRadniDani = jtblTermini.getColumnModel().getColumn(1);
-        System.out.println(jtblTermini.getColumnModel());
-        System.out.println(tcRadniDani);
+//        System.out.println(jtblTermini.getColumnModel());
+//        System.out.println(tcRadniDani);
         tcRadniDani.setCellEditor(new DefaultCellEditor(cbRadniDani));
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private boolean imaVecTajPaket(String unetiNaziv) {
+        try {
+            List<AbstractObjekat> paketi = Kontroler.vratiKontrolera().vratiSvePakete();
+            
+            for (AbstractObjekat abs : paketi) {
+                Paket p = (Paket) abs;
+                if(p.getNaziv().equals(unetiNaziv)){
+                    return true;
+                }
+            }
+            
+            
+            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        } catch (IOException ex) {
+            Logger.getLogger(DodajPaketFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DodajPaketFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+    }
+
+    private boolean nijeBroj(String cena) {
+        String brojevi = "0123456789";
+        
+        for (int i = 0; i < cena.length(); i++) {
+            if(!brojevi.contains(cena.charAt(i)+"")){
+                return true;
+            }
+        }
+        
+        return false;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
