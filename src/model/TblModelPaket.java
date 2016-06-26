@@ -61,5 +61,9 @@ public class TblModelPaket extends AbstractTableModel {
         this.paketi = paketi;
                 fireTableDataChanged();
     }
+    
+    public AbstractObjekat vratiPaket(int red){
+        return paketi.get(red);
+    }
 
 }

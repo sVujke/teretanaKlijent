@@ -17,7 +17,11 @@ import model.TblModelPaket;
 import model.TblModelTermin;
 import start.KlijentStart;
 import forme.DodajPaketFrm;
+import java.util.ArrayList;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -97,6 +101,11 @@ public class PaketFrm extends javax.swing.JFrame {
         jbtDodajTermin.setText("+");
 
         jbtIzbaciTermin.setText("-");
+        jbtIzbaciTermin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtIzbaciTerminActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jtblTerminiLayout = new javax.swing.GroupLayout(jtblTermini);
         jtblTermini.setLayout(jtblTerminiLayout);
@@ -241,6 +250,15 @@ public class PaketFrm extends javax.swing.JFrame {
                     + "koji se menja!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
             return;
         }
+        
+        Paket paket = (Paket) tblP.vratiPaket(red);
+        
+         DodajPaketFrm pk = new DodajPaketFrm("update", paket);
+        
+        JDialog dialog = new JDialog(this, "Dodaj člana");
+            dialog.add(pk);
+            dialog.pack();
+            dialog.setVisible(true);
     }//GEN-LAST:event_jbtIzmeniPaketActionPerformed
 
     private void jbtPretraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPretraziActionPerformed
@@ -267,6 +285,11 @@ public class PaketFrm extends javax.swing.JFrame {
             Logger.getLogger(PaketFrm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jbtResetujActionPerformed
+
+    private void jbtIzbaciTerminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtIzbaciTerminActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jbtIzbaciTerminActionPerformed
 
     /**
      * @param args the command line arguments
@@ -326,6 +349,9 @@ public class PaketFrm extends javax.swing.JFrame {
             paketi = Kontroler.vratiKontrolera().vratiSvePakete();
             tblP = new TblModelPaket(paketi);
             jtblPaketii.setModel(tblP);
+            
+            
+            
         } catch (IOException ex) {
             Logger.getLogger(PaketFrm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

@@ -7,7 +7,14 @@ package forme;
 
 import domen.Clan;
 import domen.Paket;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.table.TableColumn;
 import model.TblModelClan;
 import model.TblModelTermin;
 
@@ -16,8 +23,11 @@ import model.TblModelTermin;
  * @author vujke
  */
 public class DodajPaketFrm extends javax.swing.JPanel {
-     String mode;
+
+    String mode;
     TblModelTermin tbl;
+    Paket paket;
+
     /**
      * Creates new form DodajPaketFrm
      */
@@ -27,17 +37,18 @@ public class DodajPaketFrm extends javax.swing.JPanel {
         srediTabelu();
         jtxtBrTermina.setEditable(false);
         jtxtBrTermina.setFocusable(false);
-        
-        if(mode.equals("create")){
-            
+
+        if (mode.equals("create")) {
+
         }
-        
-        if(mode.equals("update")){
+
+        if (mode.equals("update")) {
             jtxtNaziv.setText(paket.getNaziv());
             jtxtCena.setText(paket.getCena());
             jbtSacuvaj.setText("Izmeni paket");
+            this.paket = paket;
         }
-        
+
     }
 
     /**
@@ -80,6 +91,11 @@ public class DodajPaketFrm extends javax.swing.JPanel {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jbtDodaj.setText("+");
+        jbtDodaj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtDodajActionPerformed(evt);
+            }
+        });
 
         jbtIzbaci.setText("-");
         jbtIzbaci.addActionListener(new java.awt.event.ActionListener() {
@@ -210,7 +226,22 @@ public class DodajPaketFrm extends javax.swing.JPanel {
 
     private void jbtIzbaciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtIzbaciActionPerformed
         // TODO add your handling code here:
+        int red = jtblTermini.getSelectedRow();
+
+        if (red == -1) {
+            JOptionPane.showMessageDialog(this, "Nije odabran termin "
+                    + "za izbacivanje!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+            return;
+        }
+        tbl.izbaci(red);
+        brojTermina();
     }//GEN-LAST:event_jbtIzbaciActionPerformed
+
+    private void jbtDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDodajActionPerformed
+        // TODO add your handling code here:
+        tbl.napraviRed();
+        brojTermina();
+    }//GEN-LAST:event_jbtDodajActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -231,16 +262,51 @@ public class DodajPaketFrm extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void srediTabelu() {
-        System.out.println("MODE: "+mode);
-        if(mode.equals("create")){
+        System.out.println("MODE: " + mode);
+        if (mode.equals("create")) {
             System.out.println("usao");
             tbl = new TblModelTermin(new ArrayList<>());
             jtblTermini.setModel(tbl);
         }
-        
-        if(mode.equals("update")){
-        
+
+        if (mode.equals("update")) {
+            tbl = new TblModelTermin(paket.getTermini());
+            jtblTermini.setModel(tbl);
         }
+        
+        srediComboUTabeli();
+        
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    }
+
+    private void brojTermina() {
+        jtxtBrTermina.setText(tbl.vratiListuTermina().size() + "");
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void srediComboUTabeli() {
+        String[] smene = {"prva", "druga", "treca"};
+
+        JComboBox cbSmena = new JComboBox(smene);
+        System.out.println(cbSmena);
+
+        //cbPredmet.addItem();
+        TableColumn tcSmene = jtblTermini.getColumnModel().getColumn(0);
+        System.out.println(jtblTermini.getColumnModel());
+        System.out.println(tcSmene);
+        tcSmene.setCellEditor(new DefaultCellEditor(cbSmena));
+        
+        String[] radniDani = {"DA", "NE"};
+        
+        JComboBox cbRadniDani = new JComboBox(radniDani);
+        System.out.println(cbRadniDani);
+
+        //cbPredmet.addItem();
+        TableColumn tcRadniDani = jtblTermini.getColumnModel().getColumn(1);
+        System.out.println(jtblTermini.getColumnModel());
+        System.out.println(tcRadniDani);
+        tcRadniDani.setCellEditor(new DefaultCellEditor(cbRadniDani));
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
