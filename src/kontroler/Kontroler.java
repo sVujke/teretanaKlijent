@@ -283,6 +283,20 @@ public class Kontroler {
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public AbstractObjekat zapamtiPaket(AbstractObjekat paket) throws IOException, ClassNotFoundException {
+        KlijentTransfer kt = new KlijentTransfer();
+        kt.setOperacija(konstante.Konstante.ZAPAMTI_PAKET);
+        kt.setParametar(paket);
+        kom.posaljiZahtev(kt);
+        ServerTransfer st = kom.procitajOdgovor();
+        if (st.getUspesnostOperacije() == 1) {
+            //System.out.println("evo me u kont klijenta 2");
+            return (AbstractObjekat) (st.getPodaci());
+        } else {
+            return null;
+        }
+    }
 
     public List<AbstractObjekat> pretraziPakete(String pretraga) throws IOException, ClassNotFoundException {
         System.out.println("KLIJENT KONTROLER: "+pretraga);

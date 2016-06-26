@@ -311,6 +311,16 @@ public class DodajPaketFrm extends javax.swing.JPanel {
             return;
             }
         }
+        
+        Paket paket = new Paket("0", nazivPaketa, cena);
+        paket.setTermini(termini);
+        try {
+            Kontroler.vratiKontrolera().zapamtiPaket(paket);
+        } catch (IOException ex) {
+            Logger.getLogger(DodajPaketFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DodajPaketFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jbtSacuvajActionPerformed
 
 
