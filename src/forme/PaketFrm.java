@@ -6,14 +6,18 @@
 package forme;
 
 import domen.AbstractObjekat;
+import domen.Paket;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import kontroler.Kontroler;
 import model.TblModelPaket;
 import model.TblModelTermin;
 import start.KlijentStart;
+import forme.DodajPaketFrm;
+import javax.swing.JDialog;
 
 /**
  *
@@ -216,10 +220,27 @@ public class PaketFrm extends javax.swing.JFrame {
 
     private void jbtDodajPaketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDodajPaketActionPerformed
         // TODO add your handling code here:
+        
+        Paket paket = null;
+
+        DodajPaketFrm pk = new DodajPaketFrm("create", paket);
+        
+        JDialog dialog = new JDialog(this, "Dodaj člana");
+            dialog.add(pk);
+            dialog.pack();
+            dialog.setVisible(true);
     }//GEN-LAST:event_jbtDodajPaketActionPerformed
 
     private void jbtIzmeniPaketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtIzmeniPaketActionPerformed
         // TODO add your handling code here:
+        
+        int red = jtblPaketii.getSelectedRow();
+        
+        if(red == -1){
+            JOptionPane.showMessageDialog(rootPane, "Nije odabran paket "
+                    + "koji se menja!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+            return;
+        }
     }//GEN-LAST:event_jbtIzmeniPaketActionPerformed
 
     private void jbtPretraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPretraziActionPerformed
