@@ -417,8 +417,18 @@ public class DodajPaketFrm extends javax.swing.JPanel {
             System.out.println("Pisem: "+tbl.vratiListuTermina().size());
             
             List<Object> lista = new ArrayList<Object>();
+            
+            List<Termin> terList = tbl.vratiListuTermina();
+            List<AbstractObjekat> pisem = new ArrayList<>();
+            
+            for (Termin ttt : terList) {
+                ttt.setPaket(paket);
+                pisem.add(ttt);
+            }
+            
             lista.add(brisem);
             lista.add(paket);
+            lista.add(pisem);
             
             try {
                 Paket pp = (Paket) Kontroler.vratiKontrolera().izmeniPaket(lista);
