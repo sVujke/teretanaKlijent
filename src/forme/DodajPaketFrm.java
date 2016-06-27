@@ -294,7 +294,7 @@ public class DodajPaketFrm extends javax.swing.JPanel {
         tbl.napraviRed();
         brojTermina();
         System.out.println("KAD KLIKNEM +,za dodavanje: "+tbl.vratiListuTermina().size());
-         System.out.println("KAD KLIKNEM +, BRISEM" + brisem.size());
+//         System.out.println("KAD KLIKNEM +, BRISEM" + brisem.size());
     }//GEN-LAST:event_jbtDodajActionPerformed
 
     private void jbtSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSacuvajActionPerformed
@@ -352,9 +352,21 @@ public class DodajPaketFrm extends javax.swing.JPanel {
             }
 
             Paket pak = new Paket("0", nazivPaketa, cena);
-            pak.setTermini(termini);
+//            pak.setTermini(termini);
+            List<Object> lista = new ArrayList<>();
+            //OVO JE MOGLO I PAMETNIJE DA SE RESI... AL STA SAD
+            
+            lista.add(paket);
+            List<Termin> terLis = new ArrayList<>();
+            for (Termin tL : termini) {
+                tL.setPaket(paket);
+                terLis.add(tL);
+            }
+            
+            lista.add(paket);
+            lista.add(terLis);
             try {
-                Paket p = (Paket) Kontroler.vratiKontrolera().zapamtiPaket(pak);
+                Paket p = (Paket) Kontroler.vratiKontrolera().zapamtiPaket(lista);
                 JOptionPane.showMessageDialog(jtxtCena, "Dodat je paket sa nazivom"
                         + p.getNaziv() + "i cenom: " + p.getCena());
 
@@ -470,6 +482,8 @@ public class DodajPaketFrm extends javax.swing.JPanel {
             tbl = new TblModelTermin(new ArrayList<>());
             jtblTermini.setModel(tbl);
         }
+        
+        srediComboUTabeli();
     }
 
     private void srediTabeluUpdate(List<Termin> uPaket) {

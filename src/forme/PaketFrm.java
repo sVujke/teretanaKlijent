@@ -186,7 +186,7 @@ public class PaketFrm extends javax.swing.JFrame {
 
         DodajPaketFrm pk = new DodajPaketFrm("create", paket, tblP, null);
         
-        JDialog dialog = new JDialog(this, "Dodaj člana");
+        JDialog dialog = new JDialog(this, "Dodaj paket");
             dialog.add(pk);
             dialog.pack();
             dialog.setVisible(true);
@@ -219,9 +219,9 @@ public class PaketFrm extends javax.swing.JFrame {
                 }
             brisem = terminiInicijalno;
             
-             DodajPaketFrm pk = new DodajPaketFrm("update", paket, tblP, brisem);
+             DodajPaketFrm pk = new DodajPaketFrm("update", paket, tblP, new ArrayList<>());
         
-        JDialog dialog = new JDialog(this, "Dodaj člana");
+        JDialog dialog = new JDialog(this, "Izmeni paket");
             dialog.add(pk);
             dialog.pack();
             dialog.setVisible(true);

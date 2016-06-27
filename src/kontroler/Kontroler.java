@@ -298,10 +298,10 @@ public class Kontroler {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    public AbstractObjekat zapamtiPaket(AbstractObjekat paket) throws IOException, ClassNotFoundException {
+    public AbstractObjekat zapamtiPaket(List<Object> lista) throws IOException, ClassNotFoundException {
         KlijentTransfer kt = new KlijentTransfer();
         kt.setOperacija(konstante.Konstante.ZAPAMTI_PAKET);
-        kt.setParametar(paket);
+        kt.setParametar(lista);
         kom.posaljiZahtev(kt);
         ServerTransfer st = kom.procitajOdgovor();
         if (st.getUspesnostOperacije() == 1) {
