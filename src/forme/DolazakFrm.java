@@ -242,6 +242,18 @@ public class DolazakFrm extends javax.swing.JFrame {
         String radniDan = (String) jcbRadniDan.getSelectedItem();
         boolean radni = false;
         
+        if(datumUnet.length()==0){
+            JOptionPane.showMessageDialog(rootPane, "Nije unet datum!: "
+                    , "Greška!", JOptionPane.ERROR_MESSAGE, null);
+             return;
+        }
+        
+        if(vecJeUnetZaTajDatum(datumUnet)){
+             JOptionPane.showMessageDialog(rootPane, "Već ostoji dolazak clana: "
+                    + c.getIme()+" na "+datumUnet+"", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+             return;
+        }
+        
         if(radniDan == "DA"){
             radni = true;
         }
@@ -386,5 +398,37 @@ public class DolazakFrm extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DolazakFrm.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private boolean vecJeUnetZaTajDatum(String datumUnet) {
+        
+        try {
+            List<AbstractObjekat> listaDolazaka =  Kontroler.vratiKontrolera().vratiListuDolazaka();
+            
+            for (AbstractObjekat abs : listaDolazaka) {
+                Dolazak d = (Dolazak) abs;
+                Date datumIzBaze = d.getDatum();
+                String datum = ulepsajDatum(datumIzBaze);
+                if(datum.equals(datumUnet)){
+                    return true;
+                }
+            }
+            
+            
+            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        } catch (IOException ex) {
+            Logger.getLogger(DolazakFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DolazakFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+    }
+
+    private String ulepsajDatum(Date datumIzBaze) {
+         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy.");
+        Date date = datumIzBaze;
+        return dateFormat.format(date);
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
