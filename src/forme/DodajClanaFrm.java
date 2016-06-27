@@ -26,8 +26,12 @@ import model.TblModelClan;
  * @author vujke
  */
 public class DodajClanaFrm extends javax.swing.JPanel {
+
     String mode;
     TblModelClan tbl;
+    Clan clanUpdate;
+    Paket paketUpdate;
+
     /**
      * Creates new form DodajClanaFrm
      */
@@ -35,13 +39,16 @@ public class DodajClanaFrm extends javax.swing.JPanel {
         initComponents();
         srediComboBox();
         this.tbl = tbl;
+        this.mode = "create";
     }
-    
+
     public DodajClanaFrm(TblModelClan tbl, String mode, Clan clan, Paket paket) throws IOException, ClassNotFoundException {
         initComponents();
         srediComboBoxUpdate(clan.getMesto(), paket);
         this.mode = mode;
-         this.tbl = tbl;
+        this.tbl = tbl;
+        this.clanUpdate = clan;
+        this.paketUpdate = paket;
         jbtDodaj.setText("Izmeni člana");
         jtxtIme.setText(clan.getIme());
         jtxtPrezime.setText(clan.getPrezime());
@@ -49,10 +56,6 @@ public class DodajClanaFrm extends javax.swing.JPanel {
         jtxtTelefon.setText(clan.getTelefon());
         jtxtAdresa.setText(clan.getAdresa());
     }
-    
-    
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -192,80 +195,104 @@ public class DodajClanaFrm extends javax.swing.JPanel {
 
     private void jbtDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDodajActionPerformed
         // TODO add your handling code here:
-        
+
         String ime = jtxtIme.getText().trim();
         String prezime = jtxtPrezime.getText().trim();
         String email = jtxtEmail.getText().trim();
         String tel = jtxtTelefon.getText().trim();
         String adresa = jtxtAdresa.getText().trim();
-        
-        
-        if(ime.length()==0){
-            JOptionPane.showMessageDialog(jcbPaket, "Nije uneto ime člana!"
-                    , "Greška!", JOptionPane.ERROR_MESSAGE, null);
+
+        if (ime.length() == 0) {
+            JOptionPane.showMessageDialog(jcbPaket, "Nije uneto ime člana!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
             return;
         }
-        
-        if(prezime.length()==0){
-            JOptionPane.showMessageDialog(jcbPaket, "Nije uneto prezime clana!"
-                    , "Greška!", JOptionPane.ERROR_MESSAGE, null);
+
+        if (prezime.length() == 0) {
+            JOptionPane.showMessageDialog(jcbPaket, "Nije uneto prezime clana!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
             return;
         }
-        
-        if(email.length()==0){
-            JOptionPane.showMessageDialog(jcbPaket, "Nije uneta e-mal adresa!"
-                    , "Greška!", JOptionPane.ERROR_MESSAGE, null);
+
+        if (email.length() == 0) {
+            JOptionPane.showMessageDialog(jcbPaket, "Nije uneta e-mal adresa!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
             return;
         }
-        
-        if(tel.length()==0){
-            JOptionPane.showMessageDialog(jcbPaket, "Nije unet telefon!"
-                    , "Greška!", JOptionPane.ERROR_MESSAGE, null);
+
+        if (tel.length() == 0) {
+            JOptionPane.showMessageDialog(jcbPaket, "Nije unet telefon!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
             return;
         }
-        
-        if(adresa.length()==0){
-            JOptionPane.showMessageDialog(jcbPaket, "Nije uneta adresa!"
-                    , "Greška!", JOptionPane.ERROR_MESSAGE, null);
+
+        if (adresa.length() == 0) {
+            JOptionPane.showMessageDialog(jcbPaket, "Nije uneta adresa!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
             return;
         }
-        String validacijaTelefona = "+0123456789";
-        if(!validanBroj(validacijaTelefona,tel)){
-            JOptionPane.showMessageDialog(jcbPaket, "Nije unet validan broj telefona!"
-                    , "Greška!", JOptionPane.ERROR_MESSAGE, null);
+        String validacijaTelefona = "0123456789";
+        if (!validanBroj(validacijaTelefona, tel)) {
+            JOptionPane.showMessageDialog(jcbPaket, "Nije unet validan broj telefona!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
             return;
         }
-        
-        if(!validanEmail(email)){
-           JOptionPane.showMessageDialog(jcbPaket, "Nije unet validan e-mail!"
-                    , "Greška!", JOptionPane.ERROR_MESSAGE, null);
+
+        if (!validanEmail(email)) {
+            JOptionPane.showMessageDialog(jcbPaket, "Nije unet validan e-mail!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
             return;
         }
-        
-        Mesto mesto = (Mesto) jcbMesto.getSelectedItem();
-        Paket paket = (Paket) jcbPaket.getSelectedItem();
-        Clan clan = new Clan(null,ime, prezime, email, adresa, tel, mesto);
-        List<Object> parametri = new ArrayList<>();
-        parametri.add(clan);
-        Date datumSys = new Date();
-        IstorijatPaketa ip = new IstorijatPaketa(true, datumSys, clan, paket, "0");
-        //parametri.add(paket);
-        
-        parametri.add(ip);
-        try {
-            Clan clanServer = (Clan) Kontroler.vratiKontrolera().zapamtiClana(parametri);
-            JOptionPane.showMessageDialog(jcbPaket, "Uspesno dodat clan: "+clan.getIme());
-            //System.out.println(clanServer);
-            List<AbstractObjekat> clanovi = Kontroler.vratiKontrolera().vratiListuClanova();
-            tbl.filterForme(clanovi);
+
+        if (mode.equals("create")) {
+            Mesto mesto = (Mesto) jcbMesto.getSelectedItem();
+            Paket paket = (Paket) jcbPaket.getSelectedItem();
+            Clan clan = new Clan(null, ime, prezime, email, adresa, tel, mesto);
+            List<Object> parametri = new ArrayList<>();
+            parametri.add(clan);
+            Date datumSys = new Date();
+            IstorijatPaketa ip = new IstorijatPaketa(true, datumSys, clan, paket, "0");
+            //parametri.add(paket);
+
+            parametri.add(ip);
+            try {
+                Clan clanServer = (Clan) Kontroler.vratiKontrolera().zapamtiClana(parametri);
+                JOptionPane.showMessageDialog(jcbPaket, "Uspesno dodat clan: " + clanServer.getIme());
+                //System.out.println(clanServer);
+                List<AbstractObjekat> cip = Kontroler.vratiKontrolera().vratiListuIP();
+                tbl.filterFormeIP(cip);
+                List<AbstractObjekat> clanovi = Kontroler.vratiKontrolera().vratiListuClanova();
+                tbl.filterForme(clanovi);
 //            List<AbstractObjekat> clList = Kontroler.vratiKontrolera().vratiListuClanova();
 //            tbl.filterForme(clList);
-            
-        } catch (IOException ex) {
-            Logger.getLogger(DodajClanaFrm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DodajClanaFrm.class.getName()).log(Level.SEVERE, null, ex);
+
+            } catch (IOException ex) {
+                Logger.getLogger(DodajClanaFrm.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(DodajClanaFrm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        
+        if(mode.equals("update")){
+            Mesto mesto = (Mesto) jcbMesto.getSelectedItem();
+            Paket paket = (Paket) jcbPaket.getSelectedItem();
+            Clan clan = new Clan(clanUpdate.getClanId(), ime, prezime, email, adresa, tel, mesto);
+            
+            List<Object> lista = new ArrayList<>();
+            lista.add(clan);
+            Date datumSys = new Date();
+            IstorijatPaketa ip = new IstorijatPaketa(true, datumSys, clan, paket, "0");
+            lista.add(ip);
+            
+            try {
+                Clan clanServer = (Clan) Kontroler.vratiKontrolera().izmeniClana(lista);
+                JOptionPane.showMessageDialog(jcbPaket, "Uspesno izmenjen clan: " + clanServer.getIme());
+                
+                List<AbstractObjekat> cip = Kontroler.vratiKontrolera().vratiListuIP();
+                tbl.filterFormeIP(cip);
+                List<AbstractObjekat> clanovi = Kontroler.vratiKontrolera().vratiListuClanova();
+                tbl.filterForme(clanovi);
+//            Kontroler.vratiKontrolera().izmniClan()
+            } catch (IOException ex) {
+                Logger.getLogger(DodajClanaFrm.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(DodajClanaFrm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }//GEN-LAST:event_jbtDodajActionPerformed
 
 
@@ -288,12 +315,12 @@ public class DodajClanaFrm extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private boolean validanBroj(String validacijaTelefona, String tel) {
-        
-        if(tel.length()<7){
+
+        if (tel.length() < 7) {
             return false;
         }
         for (int i = 0; i < tel.length(); i++) {
-            if(!validacijaTelefona.contains(tel.charAt(i)+"")){
+            if (!validacijaTelefona.contains(tel.charAt(i) + "")) {
                 return false;
             }
         }
@@ -302,10 +329,10 @@ public class DodajClanaFrm extends javax.swing.JPanel {
     }
 
     private boolean validanEmail(String email) {
-         String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
-           java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
-           java.util.regex.Matcher m = p.matcher(email);
-           return m.matches();
+        String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+        java.util.regex.Matcher m = p.matcher(email);
+        return m.matches();
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -313,21 +340,21 @@ public class DodajClanaFrm extends javax.swing.JPanel {
         //List<AbstractObjekat> lm = new ArrayList<>();
         List<AbstractObjekat> mesta = new ArrayList<>();
         List<AbstractObjekat> paketi = new ArrayList<>();
-        
-                //(List<AbstractObjekat>) kontroler.vratiSvaMesta();
-                System.out.println("doslodo mesta");
+
+        //(List<AbstractObjekat>) kontroler.vratiSvaMesta();
+        System.out.println("doslodo mesta");
         mesta = Kontroler.vratiKontrolera().vratiSvaMesta();
         System.out.println("Proslo mesta");
         paketi = Kontroler.vratiKontrolera().vratiSvePakete();
         System.out.println("Proslo pakete");
         //paketi = Kontroler.vratiKontrolera();
-       // List<Mesto> listaMesta = (Mesto) mesta;
+        // List<Mesto> listaMesta = (Mesto) mesta;
         //lm = k.vratiSvaMesta();
-         for (AbstractObjekat m : mesta) {
+        for (AbstractObjekat m : mesta) {
             jcbMesto.addItem(m);
         }
-         
-         for (AbstractObjekat p : paketi) {
+
+        for (AbstractObjekat p : paketi) {
             jcbPaket.addItem(p);
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -338,26 +365,26 @@ public class DodajClanaFrm extends javax.swing.JPanel {
             List<AbstractObjekat> mesta = new ArrayList<>();
             List<AbstractObjekat> paketi = new ArrayList<>();
 //            jcbMesto.addItem(mesto);
-            
+
             //(List<AbstractObjekat>) kontroler.vratiSvaMesta();
-            System.out.println("doslodo mesta");
+//            System.out.println("doslodo mesta");
             mesta = Kontroler.vratiKontrolera().vratiSvaMesta();
-            System.out.println("Proslo mesta");
+//            System.out.println("Proslo mesta");
             paketi = Kontroler.vratiKontrolera().vratiSvePakete();
-            System.out.println("Proslo pakete");
+//            System.out.println("Proslo pakete");
             //paketi = Kontroler.vratiKontrolera();
             // List<Mesto> listaMesta = (Mesto) mesta;
             //lm = k.vratiSvaMesta();
             jcbMesto.setModel(new DefaultComboBoxModel(mesta.toArray()));
             jcbPaket.setModel(new DefaultComboBoxModel(paketi.toArray()));
-            
+
             jcbMesto.setSelectedItem(mesto);
             System.out.println(paket);
             jcbPaket.setSelectedItem(paket);
 //            for (AbstractObjekat m : mesta) {
 //                jcbMesto.addItem(m);
 //            }
-            
+
 //            for (AbstractObjekat p : paketi) {
 //                jcbPaket.addItem(p);
 //            }
@@ -369,5 +396,4 @@ public class DodajClanaFrm extends javax.swing.JPanel {
         }
     }
 
-    
 }

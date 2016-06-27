@@ -7,6 +7,7 @@ package forme;
 
 import domen.AbstractObjekat;
 import domen.Paket;
+import domen.Termin;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -183,7 +184,7 @@ public class PaketFrm extends javax.swing.JFrame {
         
         Paket paket = null;
 
-        DodajPaketFrm pk = new DodajPaketFrm("create", paket);
+        DodajPaketFrm pk = new DodajPaketFrm("create", paket, tblP, null);
         
         JDialog dialog = new JDialog(this, "Dodaj člana");
             dialog.add(pk);
@@ -204,12 +205,34 @@ public class PaketFrm extends javax.swing.JFrame {
         
         Paket paket = (Paket) tblP.vratiPaket(red);
         
-         DodajPaketFrm pk = new DodajPaketFrm("update", paket);
+        List<Termin> brisem;        
+        try {
+            List<Termin> terminiInicijalno = new ArrayList<>();
+                List<AbstractObjekat> absTerm;
+            absTerm = Kontroler.vratiKontrolera().vratiListuTermina();
+            for (AbstractObjekat abs : absTerm) {
+                    Termin tt = (Termin) abs;
+                    if (tt.getPaket().equals(paket)) {
+                        terminiInicijalno.add(tt);
+                    }
+
+                }
+            brisem = terminiInicijalno;
+            
+             DodajPaketFrm pk = new DodajPaketFrm("update", paket, tblP, brisem);
         
         JDialog dialog = new JDialog(this, "Dodaj člana");
             dialog.add(pk);
             dialog.pack();
             dialog.setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(PaketFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PaketFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+        
+        
     }//GEN-LAST:event_jbtIzmeniPaketActionPerformed
 
     private void jbtPretraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPretraziActionPerformed

@@ -120,6 +120,23 @@ public class TblModelTermin extends AbstractTableModel {
         return "NE";
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public void resetTabele(List<AbstractObjekat> absTerm) {
+        termini.clear();
+        for (AbstractObjekat abs : absTerm) {
+            Termin ter = (Termin) abs;
+            
+            termini.add(ter);
+        }
+        
+        fireTableDataChanged();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<Termin> vratiListu() {
+        return termini;//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     
     
 

@@ -105,6 +105,12 @@ public class TblModelClan extends AbstractTableModel {
         fireTableDataChanged();
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public void filterFormeIP(List<AbstractObjekat> ip) {
+        this.listaIp = ip;
+        fireTableDataChanged();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     public Object vratiPaketId(Clan clan) {
         for (AbstractObjekat abs : listaIp) {

@@ -7,6 +7,7 @@ package forme;
 
 import domen.AbstractObjekat;
 import domen.Clan;
+import domen.IstorijatPaketa;
 import domen.Mesto;
 import domen.Paket;
 import java.io.IOException;
@@ -50,6 +51,7 @@ public class ClanFrm extends javax.swing.JFrame {
         jbtDodaj = new javax.swing.JButton();
         jbtIzmeni = new javax.swing.JButton();
         jbtIzbriši = new javax.swing.JButton();
+        jbtIstorijatPaketa = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jbtPretrazi = new javax.swing.JButton();
         jtxtPretraga = new javax.swing.JTextField();
@@ -69,6 +71,8 @@ public class ClanFrm extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jbtDodaj.setText("Dodaj člana");
         jbtDodaj.addActionListener(new java.awt.event.ActionListener() {
@@ -91,28 +95,38 @@ public class ClanFrm extends javax.swing.JFrame {
             }
         });
 
+        jbtIstorijatPaketa.setText("Istorijat člana");
+        jbtIstorijatPaketa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtIstorijatPaketaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbtIstorijatPaketa, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtIzbriši, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtIzmeni, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jbtDodaj)
-                .addGap(37, 37, 37)
-                .addComponent(jbtIzmeni)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addComponent(jbtIzbriši)
-                .addGap(25, 25, 25))
+                .addGap(34, 34, 34)
+                .addComponent(jbtDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(jbtIzmeni, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(jbtIzbriši, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(jbtIstorijatPaketa, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -164,9 +178,9 @@ public class ClanFrm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,13 +188,10 @@ public class ClanFrm extends javax.swing.JFrame {
                 .addGap(7, 7, 7)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(84, 84, 84))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE))
+                .addGap(29, 29, 29))
         );
 
         pack();
@@ -285,6 +296,48 @@ public class ClanFrm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbtResetActionPerformed
 
+    private void jbtIstorijatPaketaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtIstorijatPaketaActionPerformed
+        // TODO add your handling code here:
+        int red = jTable1.getSelectedRow();
+        
+        if(red == -1){
+            JOptionPane.showMessageDialog(rootPane, "Nije odabran član "
+                    + "kojeg treba izbrisati!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+            return;
+        }
+        
+        Clan clan = tbl.vratiClana(red);
+        
+         List<AbstractObjekat> paketi;
+        try {
+            paketi = Kontroler.vratiKontrolera().vratiSvePakete();
+             List<AbstractObjekat> lip = Kontroler.vratiKontrolera().vratiListuIP();
+        List<AbstractObjekat> ip = new ArrayList<>();
+        for (AbstractObjekat abs : lip) {
+            IstorijatPaketa istoP = (IstorijatPaketa) abs;
+            if(istoP.getClan().equals(clan)){
+                ip.add(abs);
+            }
+        }
+        
+        
+        IstorijatPaketaFrm f = new IstorijatPaketaFrm(clan, ip, paketi);
+        
+         JDialog dialog = new JDialog(this, "Dodaj člana");
+            dialog.add(f);
+            dialog.pack();
+            dialog.setVisible(true);
+        
+        } catch (IOException ex) {
+            Logger.getLogger(ClanFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ClanFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        
+        
+    }//GEN-LAST:event_jbtIstorijatPaketaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -328,6 +381,7 @@ public class ClanFrm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton jbtDodaj;
+    private javax.swing.JButton jbtIstorijatPaketa;
     private javax.swing.JButton jbtIzbriši;
     private javax.swing.JButton jbtIzmeni;
     private javax.swing.JButton jbtPretrazi;

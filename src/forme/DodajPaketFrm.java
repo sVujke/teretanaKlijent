@@ -9,8 +9,8 @@ import domen.AbstractObjekat;
 import domen.Clan;
 import domen.Paket;
 import domen.Termin;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+//import java.awt.event.ActionEvent;
+//import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,8 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableColumn;
 import kontroler.Kontroler;
-import model.TblModelClan;
+//import model.TblModelClan;
+import model.TblModelPaket;
 import model.TblModelTermin;
 
 /**
@@ -33,26 +34,64 @@ public class DodajPaketFrm extends javax.swing.JPanel {
     String mode;
     TblModelTermin tbl;
     Paket paket;
+    TblModelPaket tblP;
+    List<AbstractObjekat> listaTer = new ArrayList<>();
+    List<Termin> brisem;
 
     /**
      * Creates new form DodajPaketFrm
      */
-    public DodajPaketFrm(String mode, Paket paket) {
+    public DodajPaketFrm(String mode, Paket paket, TblModelPaket tblP, List<Termin> brisem) {
+        this.tblP = tblP;
         this.mode = mode;
         initComponents();
-        srediTabelu();
+
+        
         jtxtBrTermina.setEditable(false);
         jtxtBrTermina.setFocusable(false);
 
         if (mode.equals("create")) {
-
+            srediTabeluCreate();
         }
 
         if (mode.equals("update")) {
-            jtxtNaziv.setText(paket.getNaziv());
-            jtxtCena.setText(paket.getCena());
-            jbtSacuvaj.setText("Izmeni paket");
-            this.paket = paket;
+          
+                jtxtNaziv.setText(paket.getNaziv());
+                jtxtCena.setText(paket.getCena());
+                jbtSacuvaj.setText("Izmeni paket");
+                this.paket = paket;
+                this.brisem = brisem;
+                
+            try {
+                List<Termin> uPaket = new ArrayList<>();
+                listaTer = Kontroler.vratiKontrolera().vratiListuTermina();
+                for (AbstractObjekat x : listaTer) {
+                    Termin tt = (Termin) x;
+                    if(tt.getPaket().equals(paket)){
+                        uPaket.add(tt);
+                    }
+                }
+                System.out.println(uPaket.size());
+                paket.setTermini(uPaket);
+                
+                srediTabeluUpdate(uPaket);
+                brojTermina();
+            } catch (IOException ex) {
+                Logger.getLogger(DodajPaketFrm.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(DodajPaketFrm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                
+                
+                
+                //zaBrisanje = terminiInicijalno;
+                //System.out.println("INICIJALNO: "+zaBrisanje.size());
+                //System.out.println("BRISEM: "+brisem.size());
+//                srediTabeluUpdate();
+//                brojTermina();
+
+//                tbl.resetTabele(absTerm);
+           
         }
 
     }
@@ -246,81 +285,154 @@ public class DodajPaketFrm extends javax.swing.JPanel {
         }
         tbl.izbaci(red);
         brojTermina();
+        System.out.println("KAD KLIKNEM -: "+tbl.vratiListuTermina().size());
+        System.out.println("KAD KLIKNEM -, BRISEM" + brisem.size());
     }//GEN-LAST:event_jbtIzbaciActionPerformed
 
     private void jbtDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDodajActionPerformed
         // TODO add your handling code here:
         tbl.napraviRed();
         brojTermina();
+        System.out.println("KAD KLIKNEM +,za dodavanje: "+tbl.vratiListuTermina().size());
+         System.out.println("KAD KLIKNEM +, BRISEM" + brisem.size());
     }//GEN-LAST:event_jbtDodajActionPerformed
 
     private void jbtSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSacuvajActionPerformed
         // TODO add your handling code here:
         String brTermina = jtxtBrTermina.getText();
-        try{
-            int brTer = Integer.parseInt(brTermina);
-            if(brTer < 1){
-               JOptionPane.showMessageDialog(this, "Nije uneto ni jedan "
-                    + "termin", "Greška!", JOptionPane.ERROR_MESSAGE, null);
-                return; 
-            }
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(this, "Nije uneto ni jedan "
-                    + "termin", "Greška!", JOptionPane.ERROR_MESSAGE, null);
-            return;
-        }
-        
-        
-        
-        String nazivPaketa = jtxtNaziv.getText().toLowerCase();
-        String cena = jtxtCena.getText();
-        
-        if(nazivPaketa.length() == 0){
-            JOptionPane.showMessageDialog(this, "Nije uneto ime "
-                    + "paketa", "Greška!", JOptionPane.ERROR_MESSAGE, null);
-            return;
-        }
-        
-        if(imaVecTajPaket(nazivPaketa)){
-            JOptionPane.showMessageDialog(this, "Već postoji paket sa "
-                    + "tim imenom", "Greška!", JOptionPane.ERROR_MESSAGE, null);
-            return;
-        }
-        
-        if(cena.length()==0){
-            JOptionPane.showMessageDialog(this, "Nije uneta cena paketa!"
-                    , "Greška!", JOptionPane.ERROR_MESSAGE, null);
-            return;
-        }
-        
-        if(nijeBroj(cena)){
-            JOptionPane.showMessageDialog(this, "Cena nije uneta u "
-                    + "validnom formatu!"
-                    , "Greška!", JOptionPane.ERROR_MESSAGE, null);
-            return;
-        }
-        
-        int j = 0;
-        List<Termin> termini = tbl.vratiListuTermina();
-        for (Termin termin : termini) {
-            j++;
-            if(termin.getSmena().equals("odaberi smenu")){
-                JOptionPane.showMessageDialog(this, "Nije odabrana smena "
-                    + "za termin na poziciji: "+j+""
-                    , "Greška!", JOptionPane.ERROR_MESSAGE, null);
-            return;
-            }
-        }
-        
-        Paket paket = new Paket("0", nazivPaketa, cena);
-        paket.setTermini(termini);
         try {
-            Kontroler.vratiKontrolera().zapamtiPaket(paket);
-        } catch (IOException ex) {
-            Logger.getLogger(DodajPaketFrm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DodajPaketFrm.class.getName()).log(Level.SEVERE, null, ex);
+            int brTer = Integer.parseInt(brTermina);
+            if (brTer < 1) {
+                JOptionPane.showMessageDialog(this, "Nije unet ni jedan "
+                        + "termin", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Nije unet ni jedan "
+                    + "termin", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+            return;
         }
+
+        if (mode.equals("create")) {
+            String nazivPaketa = jtxtNaziv.getText().toLowerCase();
+            String cena = jtxtCena.getText();
+
+            if (nazivPaketa.length() == 0) {
+                JOptionPane.showMessageDialog(this, "Nije uneto ime "
+                        + "paketa", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            }
+
+            if (imaVecTajPaket(nazivPaketa)) {
+                JOptionPane.showMessageDialog(this, "Već postoji paket sa "
+                        + "tim imenom", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            }
+
+            if (cena.length() == 0) {
+                JOptionPane.showMessageDialog(this, "Nije uneta cena paketa!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            }
+
+            if (nijeBroj(cena)) {
+                JOptionPane.showMessageDialog(this, "Cena nije uneta u "
+                        + "validnom formatu!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            }
+
+            int j = 0;
+            List<Termin> termini = tbl.vratiListuTermina();
+            for (Termin termin : termini) {
+                j++;
+                if (termin.getSmena().equals("odaberi smenu")) {
+                    JOptionPane.showMessageDialog(this, "Nije odabrana smena "
+                            + "za termin na poziciji: " + j + "", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+                    return;
+                }
+            }
+
+            Paket pak = new Paket("0", nazivPaketa, cena);
+            pak.setTermini(termini);
+            try {
+                Paket p = (Paket) Kontroler.vratiKontrolera().zapamtiPaket(pak);
+                JOptionPane.showMessageDialog(jtxtCena, "Dodat je paket sa nazivom"
+                        + p.getNaziv() + "i cenom: " + p.getCena());
+
+                tblP.resetTabele(Kontroler.vratiKontrolera().vratiSvePakete());
+            } catch (IOException ex) {
+                Logger.getLogger(DodajPaketFrm.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(DodajPaketFrm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (mode.equals("update")) {
+            //brojTermina();
+            String nazivPaketa = jtxtNaziv.getText().toLowerCase();
+            String cena = jtxtCena.getText();
+
+            if (nazivPaketa.length() == 0) {
+                JOptionPane.showMessageDialog(this, "Nije uneto ime "
+                        + "paketa", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            }
+
+            if (cena.length() == 0) {
+                JOptionPane.showMessageDialog(this, "Nije uneta cena paketa!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            }
+
+            if (nijeBroj(cena)) {
+                JOptionPane.showMessageDialog(this, "Cena nije uneta u "
+                        + "validnom formatu!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            }
+
+            int j = 0;
+            List<Termin> termini = tbl.vratiListuTermina();
+            for (Termin termin : termini) {
+                j++;
+                if (termin.getSmena().equals("odaberi smenu")) {
+                    JOptionPane.showMessageDialog(this, "Nije odabrana smena "
+                            + "za termin na poziciji: " + j + "", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+                    return;
+                }
+            }
+            
+            //List<Termin> zaBrisanje = paket.getTermini();
+//            List<Termin> zaUbacivanje = tbl.vratiListu();
+//            for (Termin termin : zaUbacivanje) {
+//               
+//            }
+            
+//            System.out.println("ZA BRISANJE:  "+zaBrisanje.size());
+//            System.out.println("BRISEM: "+ brisem.size());
+//            System.out.println("ZA UBACIVANJE BR:  "+tbl.vratiListuTermina().size());
+            //System.out.println("ZA UBACIVANJE: ");
+            
+            paket.setCena(cena);
+            paket.setNaziv(nazivPaketa);
+            paket.setTermini(tbl.vratiListuTermina());
+            System.out.println("Brisem: "+brisem.size());
+            System.out.println("Pisem: "+tbl.vratiListuTermina().size());
+            
+            List<Object> lista = new ArrayList<Object>();
+            lista.add(brisem);
+            lista.add(paket);
+            
+            try {
+                Paket pp = (Paket) Kontroler.vratiKontrolera().izmeniPaket(lista);
+                JOptionPane.showMessageDialog(jtxtCena, "Izmenjen je paket, naziv: "
+                        + pp.getNaziv() + "i cena: " + pp.getCena());
+//            updatePaket();
+            } catch (IOException ex) {
+                Logger.getLogger(DodajPaketFrm.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(DodajPaketFrm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+
     }//GEN-LAST:event_jbtSacuvajActionPerformed
 
 
@@ -341,23 +453,25 @@ public class DodajPaketFrm extends javax.swing.JPanel {
     private javax.swing.JTextField jtxtNaziv;
     // End of variables declaration//GEN-END:variables
 
-    private void srediTabelu() {
+    private void srediTabeluCreate() {
         System.out.println("MODE: " + mode);
         if (mode.equals("create")) {
 //            System.out.println("usao");
             tbl = new TblModelTermin(new ArrayList<>());
             jtblTermini.setModel(tbl);
         }
+    }
+
+    private void srediTabeluUpdate(List<Termin> uPaket) {
 
         if (mode.equals("update")) {
-            tbl = new TblModelTermin(paket.getTermini());
+            tbl = new TblModelTermin(uPaket);
             jtblTermini.setModel(tbl);
         }
-        
-        srediComboUTabeli();
-        
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
+        srediComboUTabeli();
+
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     private void brojTermina() {
@@ -376,9 +490,9 @@ public class DodajPaketFrm extends javax.swing.JPanel {
 //        System.out.println(jtblTermini.getColumnModel());
 //        System.out.println(tcSmene);
         tcSmene.setCellEditor(new DefaultCellEditor(cbSmena));
-        
+
         String[] radniDani = {"DA", "NE"};
-        
+
         JComboBox cbRadniDani = new JComboBox(radniDani);
 //        System.out.println(cbRadniDani);
 
@@ -393,35 +507,43 @@ public class DodajPaketFrm extends javax.swing.JPanel {
     private boolean imaVecTajPaket(String unetiNaziv) {
         try {
             List<AbstractObjekat> paketi = Kontroler.vratiKontrolera().vratiSvePakete();
-            
+
             for (AbstractObjekat abs : paketi) {
                 Paket p = (Paket) abs;
-                if(p.getNaziv().equals(unetiNaziv)){
+                if (p.getNaziv().equals(unetiNaziv)) {
                     return true;
                 }
             }
-            
-            
+
             //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         } catch (IOException ex) {
             Logger.getLogger(DodajPaketFrm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DodajPaketFrm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return false;
     }
 
     private boolean nijeBroj(String cena) {
         String brojevi = "0123456789";
-        
+
         for (int i = 0; i < cena.length(); i++) {
-            if(!brojevi.contains(cena.charAt(i)+"")){
+            if (!brojevi.contains(cena.charAt(i) + "")) {
                 return true;
             }
         }
-        
+
         return false;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void obrisiTermine() {
+        //Kontroler.vratiKontrolera().vratiListuTermina();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void updatePaket() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

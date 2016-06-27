@@ -5,20 +5,23 @@
  */
 package forme;
 
+import domen.AbstractObjekat;
 import domen.Clan;
 import domen.IstorijatPaketa;
+import domen.Paket;
 import java.util.List;
+import model.TblModelIP;
 
 /**
  *
  * @author vujke
  */
 public class IstorijatPaketaFrm extends javax.swing.JPanel {
-//    TblModelIP tbl;
+    TblModelIP tbl;
     /**
      * Creates new form IstorijatPaketaFrm
      */
-    public IstorijatPaketaFrm(Clan c, List<IstorijatPaketa> ip) {
+    public IstorijatPaketaFrm(Clan c, List<AbstractObjekat> ip, List<AbstractObjekat> paketi) {
         initComponents();
         jtxtAdresa.setFocusable(false);
         jtxtEmail.setFocusable(false);
@@ -29,7 +32,12 @@ public class IstorijatPaketaFrm extends javax.swing.JPanel {
         jtxtImePrezime.setEditable(false);
         jtxtTelefon.setEditable(false);
         
-        srediTabelu(ip);
+        jtxtAdresa.setText(c.getAdresa());
+         jtxtEmail.setText(c.getEmail());
+        jtxtImePrezime.setText(c.getIme()+" "+c.getPrezime());
+        jtxtTelefon.setText(c.getTelefon());
+        
+        srediTabelu(ip,paketi);
         
     }
 
@@ -157,7 +165,10 @@ public class IstorijatPaketaFrm extends javax.swing.JPanel {
     private javax.swing.JTextField jtxtTelefon;
     // End of variables declaration//GEN-END:variables
 
-    private void srediTabelu(List<IstorijatPaketa> ip) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void srediTabelu(List<AbstractObjekat> ip, List<AbstractObjekat> paketi) {
+        
+        tbl = new TblModelIP(ip, paketi);
+        jTable1.setModel(tbl);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

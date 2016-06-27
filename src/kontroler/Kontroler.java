@@ -193,6 +193,20 @@ public class Kontroler {
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public List<AbstractObjekat> vratiListuTermina() throws IOException, ClassNotFoundException {
+        KlijentTransfer kt = new KlijentTransfer();
+        kt.setOperacija(konstante.Konstante.VRATI_LISTU_TERMINA);
+        kom.posaljiZahtev(kt);
+        ServerTransfer st = kom.procitajOdgovor();
+
+        if (st.getUspesnostOperacije() == 1) {
+            return (List<AbstractObjekat>) st.getPodaci();
+        } else {
+            return null;
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     public List<AbstractObjekat> pretraziClanove(String pretraga) throws IOException, ClassNotFoundException {
         KlijentTransfer kt = new KlijentTransfer();
@@ -308,6 +322,39 @@ public class Kontroler {
 
         if (st.getUspesnostOperacije() == 1) {
             return (List<AbstractObjekat>) st.getPodaci();
+        } else {
+            return null;
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public AbstractObjekat izmeniPaket(List<Object> lista) throws IOException, ClassNotFoundException {
+//        System.out.println("KLIJENT KONTROLER: "+pretraga);
+        KlijentTransfer kt = new KlijentTransfer();
+        kt.setOperacija(konstante.Konstante.IZMENI_PAKET);
+        kt.setParametar(lista);
+        kom.posaljiZahtev(kt);
+        ServerTransfer st = kom.procitajOdgovor();
+
+        if (st.getUspesnostOperacije() == 1) {
+            return (AbstractObjekat) st.getPodaci();
+        } else {
+            return null;
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public AbstractObjekat izmeniClana(List<Object> lista) throws IOException, ClassNotFoundException {
+//        System.out.println("KLIJENT KONTROLER: "+pretraga);
+        KlijentTransfer kt = new KlijentTransfer();
+        kt.setOperacija(konstante.Konstante.IZMENI_CLANA);
+        kt.setParametar(lista);
+        kom.posaljiZahtev(kt);
+        ServerTransfer st = kom.procitajOdgovor();
+
+        if (st.getUspesnostOperacije() == 1) {
+            System.out.println("Saljem odgovor IZMENA_CLANA");
+            return (AbstractObjekat) st.getPodaci();
         } else {
             return null;
         }
