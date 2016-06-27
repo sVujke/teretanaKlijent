@@ -356,16 +356,19 @@ public class DodajPaketFrm extends javax.swing.JPanel {
             List<Object> lista = new ArrayList<>();
             //OVO JE MOGLO I PAMETNIJE DA SE RESI... AL STA SAD
             
-            lista.add(paket);
+            lista.add(pak);
+            System.out.println("PAKET: "+pak);
             List<Termin> terLis = new ArrayList<>();
             for (Termin tL : termini) {
-                tL.setPaket(paket);
+                tL.setPaket(pak);
+                System.out.println("TERMIN U LISTI");
                 terLis.add(tL);
             }
             
-            lista.add(paket);
+//            lista.add(paket);
             lista.add(terLis);
             try {
+                System.out.println(lista.size());
                 Paket p = (Paket) Kontroler.vratiKontrolera().zapamtiPaket(lista);
                 JOptionPane.showMessageDialog(jtxtCena, "Dodat je paket sa nazivom"
                         + p.getNaziv() + "i cenom: " + p.getCena());
