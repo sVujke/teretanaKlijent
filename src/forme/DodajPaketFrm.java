@@ -364,6 +364,7 @@ public class DodajPaketFrm extends javax.swing.JPanel {
                 System.out.println("TERMIN U LISTI");
                 terLis.add(tL);
             }
+            //kk
             
 //            lista.add(paket);
             lista.add(terLis);
