@@ -88,6 +88,7 @@ public class PretplataFrm extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Pretplate");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -117,7 +118,7 @@ public class PretplataFrm extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jbtFilter.setText("Pretraži uplate");
+        jbtFilter.setText("Pretraži pretplate");
         jbtFilter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtFilterActionPerformed(evt);
@@ -366,7 +367,8 @@ public class PretplataFrm extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         if (odabraniClan == null) {
-            JOptionPane.showMessageDialog(rootPane, "Nije odabran član! ", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+            JOptionPane.showMessageDialog(rootPane, "Nije odabran član! ",
+                    "Greška!", JOptionPane.ERROR_MESSAGE, null);
             return;
         }
 
@@ -374,7 +376,12 @@ public class PretplataFrm extends javax.swing.JFrame {
 
         try {
             Pretplata p = (Pretplata) Kontroler.vratiKontrolera().zapamtiPretplatu(pre);
-            JOptionPane.showMessageDialog(rootPane, "Pretplata je uspešno dodata!");
+//            JOptionPane.showMessageDialog(rootPane, "Pretplata nije evidentirana! ",
+//                    "Greška!", JOptionPane.ERROR_MESSAGE, null);
+            
+            JOptionPane.showMessageDialog(rootPane, "Pretplata je evidentirana! ",
+                    "Poruka", JOptionPane.INFORMATION_MESSAGE, null);
+            
             List<AbstractObjekat> pretplate = Kontroler.vratiKontrolera().vratiListuPretplata();
             tblP.resetTabele(pretplate);
         } catch (IOException ex) {
@@ -411,6 +418,20 @@ public class PretplataFrm extends javax.swing.JFrame {
 //                lp.add(ppppp);
 //            }
             tblP.resetTabele(listaPretplata);
+            
+            if (tblP.vratiListu().size() == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Ne postoje pretplate"
+                        + "za odabranog člana!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Postoje pretplate po "
+                        + "za odabranog člana!", "Poruka", JOptionPane.INFORMATION_MESSAGE, null);
+                
+//                
+//                JOptionPane.showMessageDialog(rootPane, "Član nije obrisan! "
+//                        , "Greška!", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            }
         } catch (IOException ex) {
             Logger.getLogger(PretplataFrm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
