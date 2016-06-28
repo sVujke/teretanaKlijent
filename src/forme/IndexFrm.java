@@ -26,7 +26,7 @@ public class IndexFrm extends javax.swing.JFrame {
         
         new KlijentStart().start();
         
-        jMenuBar1.setVisible(false);
+//        jMenuBar1.setVisible(false);
         jPanel2.setVisible(false);
         jlblUlogovan.setVisible(false);
     }
@@ -53,9 +53,9 @@ public class IndexFrm extends javax.swing.JFrame {
         jbtPretplata = new javax.swing.JButton();
         jbtClanovi2 = new javax.swing.JButton();
         jbtDolazak = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Kontrolna tabla");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -173,8 +173,6 @@ public class IndexFrm extends javax.swing.JFrame {
                 .addGap(22, 22, 22))
         );
 
-        setJMenuBar(jMenuBar1);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -199,7 +197,7 @@ public class IndexFrm extends javax.swing.JFrame {
                 .addComponent(jlblUlogovan, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         pack();
@@ -234,7 +232,7 @@ public class IndexFrm extends javax.swing.JFrame {
                 jlblUlogovan.setText("Dobro došao/la "+korisnik.getIme()+"!");
                 jPanel1.setVisible(false);
                 jlabelPrijaviteSe.setVisible(false);
-                jMenuBar1.setVisible(true);
+//                jMenuBar1.setVisible(true);
                 jPanel2.setVisible(true);
                 jlblUlogovan.setVisible(true);
                 
@@ -316,7 +314,6 @@ public class IndexFrm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField jPasswordField;

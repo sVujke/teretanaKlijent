@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import kontroler.Kontroler;
 import model.TblModelClan;
 
@@ -31,6 +32,7 @@ public class DodajClanaFrm extends javax.swing.JPanel {
     TblModelClan tbl;
     Clan clanUpdate;
     Paket paketUpdate;
+    List<JTextField> listJtxt = new ArrayList<>();
 
     /**
      * Creates new form DodajClanaFrm
@@ -40,6 +42,7 @@ public class DodajClanaFrm extends javax.swing.JPanel {
         srediComboBox();
         this.tbl = tbl;
         this.mode = "create";
+        popuniJtxtListu();
     }
 
     public DodajClanaFrm(TblModelClan tbl, String mode, Clan clan, Paket paket) throws IOException, ClassNotFoundException {
@@ -55,6 +58,7 @@ public class DodajClanaFrm extends javax.swing.JPanel {
         jtxtEmail.setText(clan.getEmail());
         jtxtTelefon.setText(clan.getTelefon());
         jtxtAdresa.setText(clan.getAdresa());
+        popuniJtxtListu();
     }
 
     /**
@@ -250,7 +254,11 @@ public class DodajClanaFrm extends javax.swing.JPanel {
             parametri.add(ip);
             try {
                 Clan clanServer = (Clan) Kontroler.vratiKontrolera().zapamtiClana(parametri);
-                JOptionPane.showMessageDialog(jcbPaket, "Uspesno dodat clan: " + clanServer.getIme());
+                
+                ocistiJtxt();
+                //JOptionPane.showMessageDialog(jcbPaket, "Uspesno dodat clan: " + clanServer.getIme());
+                 JOptionPane.showMessageDialog(jcbPaket, "Uspešno dodat član: "
+                         + clanServer.getIme(), "Poruka", JOptionPane.INFORMATION_MESSAGE);
                 //System.out.println(clanServer);
                 List<AbstractObjekat> cip = Kontroler.vratiKontrolera().vratiListuIP();
                 tbl.filterFormeIP(cip);
@@ -278,13 +286,16 @@ public class DodajClanaFrm extends javax.swing.JPanel {
             lista.add(ip);
             
             try {
-                Clan clanServer = (Clan) Kontroler.vratiKontrolera().izmeniClana(lista);
-                JOptionPane.showMessageDialog(jcbPaket, "Uspesno izmenjen clan: " + clanServer.getIme());
+                Kontroler.vratiKontrolera().izmeniClana(lista);
+//                JOptionPane.showMessageDialog(jcbPaket, "Uspesno izmenjen clan: " + clanServer.getIme());
                 
                 List<AbstractObjekat> cip = Kontroler.vratiKontrolera().vratiListuIP();
                 tbl.filterFormeIP(cip);
                 List<AbstractObjekat> clanovi = Kontroler.vratiKontrolera().vratiListuClanova();
                 tbl.filterForme(clanovi);
+                
+                JOptionPane.showMessageDialog(jcbPaket, "Uspešno izmenjen član"
+                         , "Poruka", JOptionPane.INFORMATION_MESSAGE);
 //            Kontroler.vratiKontrolera().izmniClan()
             } catch (IOException ex) {
                 Logger.getLogger(DodajClanaFrm.class.getName()).log(Level.SEVERE, null, ex);
@@ -394,6 +405,23 @@ public class DodajClanaFrm extends javax.swing.JPanel {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DodajClanaFrm.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void popuniJtxtListu() {
+        listJtxt.add(jtxtAdresa);
+        listJtxt.add(jtxtIme);
+        listJtxt.add(jtxtEmail);
+        listJtxt.add(jtxtPrezime);
+        listJtxt.add(jtxtPrezime);
+        listJtxt.add(jtxtTelefon);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void ocistiJtxt() {
+        for (JTextField jtxt : listJtxt) {
+            jtxt.setText("");
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -275,8 +275,12 @@ public class ClanFrm extends javax.swing.JFrame {
         
         try {
             Clan obrisan = (Clan) Kontroler.vratiKontrolera().obrisiClana(clan);
+            
             List<AbstractObjekat> clanovi = Kontroler.vratiKontrolera().vratiListuClanova();
             tbl.filterForme(clanovi);
+            
+            JOptionPane.showMessageDialog(rootPane, "Obrisan je član: "
+                    + obrisan.getIme()+"", "Poruka", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
             Logger.getLogger(ClanFrm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
