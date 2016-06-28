@@ -42,6 +42,9 @@ public class DolazakFrm extends javax.swing.JFrame {
         srediTabelu();
         //System.out.println("pre comboboxa");
         srediComboBox();
+        
+        JOptionPane.showMessageDialog(rootPane, "Dolazak nije evidentiran!! "
+                        , "Greška!", JOptionPane.ERROR_MESSAGE, null);
     }
 
     /**
@@ -72,6 +75,7 @@ public class DolazakFrm extends javax.swing.JFrame {
         jbtReset = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Dolasci");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

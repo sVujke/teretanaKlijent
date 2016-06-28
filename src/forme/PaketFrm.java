@@ -59,6 +59,7 @@ public class PaketFrm extends javax.swing.JFrame {
         jbtIzmeniPaket = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Paketi\n");
 
         jtblPaketii.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -241,6 +242,19 @@ public class PaketFrm extends javax.swing.JFrame {
         try {
             List<AbstractObjekat> pretplate = Kontroler.vratiKontrolera().pretraziPakete(pretraga);
             tblP.resetTabele(pretplate);
+            if (tblP.vratiListu().size() == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Ne postoji paket po "
+                        + "zadatoj vrednosti!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Postoje paketi po "
+                        + "zadatoj vrednosti!", "Poruka", JOptionPane.INFORMATION_MESSAGE, null);
+                
+//                
+//                JOptionPane.showMessageDialog(rootPane, "Član nije obrisan! "
+//                        , "Greška!", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            }
         } catch (IOException ex) {
             Logger.getLogger(PaketFrm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

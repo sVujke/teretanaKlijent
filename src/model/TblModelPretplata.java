@@ -89,4 +89,9 @@ public class TblModelPretplata extends AbstractTableModel{
         fireTableDataChanged();
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public List<AbstractObjekat> vratiListu() {
+        return pretplate;
+     //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

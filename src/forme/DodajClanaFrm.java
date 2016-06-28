@@ -254,7 +254,9 @@ public class DodajClanaFrm extends javax.swing.JPanel {
             parametri.add(ip);
             try {
                 Clan clanServer = (Clan) Kontroler.vratiKontrolera().zapamtiClana(parametri);
-                
+//                JOptionPane.showMessageDialog(jcbPaket, "Član nije sačuvan! "
+//                    +, "Greška!", JOptionPane.ERROR_MESSAGE, null);
+                    
                 ocistiJtxt();
                 //JOptionPane.showMessageDialog(jcbPaket, "Uspesno dodat clan: " + clanServer.getIme());
                  JOptionPane.showMessageDialog(jcbPaket, "Uspešno dodat član: "
@@ -275,6 +277,9 @@ public class DodajClanaFrm extends javax.swing.JPanel {
         }
         
         if(mode.equals("update")){
+//            JOptionPane.showMessageDialog(jcbPaket, "Član nije izmenjen"
+//                    , "Greška!", JOptionPane.ERROR_MESSAGE);
+            
             Mesto mesto = (Mesto) jcbMesto.getSelectedItem();
             Paket paket = (Paket) jcbPaket.getSelectedItem();
             Clan clan = new Clan(clanUpdate.getClanId(), ime, prezime, email, adresa, tel, mesto);

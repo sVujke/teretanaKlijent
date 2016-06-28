@@ -28,6 +28,7 @@ import start.KlijentStart;
 public class ClanFrm extends javax.swing.JFrame {
 
     TblModelClan tbl;
+
     /**
      * Creates new form ClanFrm
      */
@@ -206,10 +207,23 @@ public class ClanFrm extends javax.swing.JFrame {
                     + "treba pretražiti!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
             return;
         }
-        
+
         try {
             List<AbstractObjekat> clanovi = Kontroler.vratiKontrolera().pretraziClanove(pretraga);
             tbl.filterForme(clanovi);
+            if (tbl.vratiListu().size() == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Ne postoji član po "
+                        + "zadatoj vrednosti!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Postoje članovi po "
+                        + "zadatoj vrednosti!", "Poruka", JOptionPane.INFORMATION_MESSAGE, null);
+                
+//                
+//                JOptionPane.showMessageDialog(rootPane, "Član nije obrisan! "
+//                        , "Greška!", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            }
         } catch (IOException ex) {
             Logger.getLogger(ClanFrm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -236,19 +250,19 @@ public class ClanFrm extends javax.swing.JFrame {
     private void jbtIzmeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtIzmeniActionPerformed
         // TODO add your handling code here:
         int red = jTable1.getSelectedRow();
-        
-        if(red == -1){
+
+        if (red == -1) {
             JOptionPane.showMessageDialog(rootPane, "Nije odabran član "
                     + "kojeg treba izmeniti!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
             return;
         }
-        
+
         try {
 //            Mesto mesto = tbl.vratiMesto(tbl.vratiClana(red).getMesto().getMestoid());
             // TODO add your handling code here:
             Paket p = (Paket) tbl.vratiPaket(tbl.vratiPaketId(tbl.vratiClana(red)));
             System.out.println(p);
-            DodajClanaFrm dodaj = new DodajClanaFrm(tbl,"update", tbl.vratiClana(red),p);
+            DodajClanaFrm dodaj = new DodajClanaFrm(tbl, "update", tbl.vratiClana(red), p);
             //FrmDodajKorisnika frm = new FrmDodajKorisnika(tbl);
             JDialog dialog = new JDialog(this, "Izmeni člana");
             dialog.add(dodaj);
@@ -264,23 +278,23 @@ public class ClanFrm extends javax.swing.JFrame {
     private void jbtIzbrišiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtIzbrišiActionPerformed
         // TODO add your handling code here
         int red = jTable1.getSelectedRow();
-        
-        if(red == -1){
+
+        if (red == -1) {
             JOptionPane.showMessageDialog(rootPane, "Nije odabran član "
                     + "kojeg treba izbrisati!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
             return;
         }
-        
+
         Clan clan = tbl.vratiClana(red);
-        
+
         try {
             Clan obrisan = (Clan) Kontroler.vratiKontrolera().obrisiClana(clan);
-            
+
             List<AbstractObjekat> clanovi = Kontroler.vratiKontrolera().vratiListuClanova();
             tbl.filterForme(clanovi);
-            
+
             JOptionPane.showMessageDialog(rootPane, "Obrisan je član: "
-                    + obrisan.getIme()+"", "Poruka", JOptionPane.INFORMATION_MESSAGE);
+                    + obrisan.getIme() + "", "Poruka", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
             Logger.getLogger(ClanFrm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -303,43 +317,41 @@ public class ClanFrm extends javax.swing.JFrame {
     private void jbtIstorijatPaketaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtIstorijatPaketaActionPerformed
         // TODO add your handling code here:
         int red = jTable1.getSelectedRow();
-        
-        if(red == -1){
+
+        if (red == -1) {
             JOptionPane.showMessageDialog(rootPane, "Nije odabran član "
                     + "kojeg treba izbrisati!", "Greška!", JOptionPane.ERROR_MESSAGE, null);
             return;
         }
-        
+
         Clan clan = tbl.vratiClana(red);
-        
-         List<AbstractObjekat> paketi;
+
+        List<AbstractObjekat> paketi;
         try {
             paketi = Kontroler.vratiKontrolera().vratiSvePakete();
-             List<AbstractObjekat> lip = Kontroler.vratiKontrolera().vratiListuIP();
-        List<AbstractObjekat> ip = new ArrayList<>();
-        for (AbstractObjekat abs : lip) {
-            IstorijatPaketa istoP = (IstorijatPaketa) abs;
-            if(istoP.getClan().equals(clan)){
-                ip.add(abs);
+            List<AbstractObjekat> lip = Kontroler.vratiKontrolera().vratiListuIP();
+            List<AbstractObjekat> ip = new ArrayList<>();
+            for (AbstractObjekat abs : lip) {
+                IstorijatPaketa istoP = (IstorijatPaketa) abs;
+                if (istoP.getClan().equals(clan)) {
+                    ip.add(abs);
+                }
             }
-        }
-        
-        
-        IstorijatPaketaFrm f = new IstorijatPaketaFrm(clan, ip, paketi);
-        
-         JDialog dialog = new JDialog(this, "Dodaj člana");
+
+            IstorijatPaketaFrm f = new IstorijatPaketaFrm(clan, ip, paketi);
+
+            JDialog dialog = new JDialog(this, "Istorijat člana");
             dialog.add(f);
             dialog.pack();
             dialog.setVisible(true);
-        
+
         } catch (IOException ex) {
             Logger.getLogger(ClanFrm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ClanFrm.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
-        
-        
+
+
     }//GEN-LAST:event_jbtIstorijatPaketaActionPerformed
 
     /**
@@ -393,24 +405,24 @@ public class ClanFrm extends javax.swing.JFrame {
     private javax.swing.JTextField jtxtPretraga;
     // End of variables declaration//GEN-END:variables
 
-    private void srediTabelu(){
+    private void srediTabelu() {
         try {
-            
+
             List<AbstractObjekat> clanovi;
             List<AbstractObjekat> mesta;
             List<AbstractObjekat> listaIp;
             List<AbstractObjekat> paketi;
             //System.out.println("korisniciBaza");
-            
+
             //System.out.println("pre vratiListuKorisnika");
             clanovi = Kontroler.vratiKontrolera().vratiListuClanova();
-            
+
             mesta = Kontroler.vratiKontrolera().vratiSvaMesta();
-            
+
             listaIp = Kontroler.vratiKontrolera().vratiListuIP();
-            
+
             paketi = Kontroler.vratiKontrolera().vratiSvePakete();
-            
+
             tbl = new TblModelClan(clanovi, mesta, listaIp, paketi);
             //System.out.println("posle vratiListuKorisnika");
 //            for (AbstractObjekat ao : clanovi) {
@@ -419,7 +431,7 @@ public class ClanFrm extends javax.swing.JFrame {
 //                tbl.dodajUTabelu(m);
 //                //System.out.println("dodat");
 //            }
-            
+
             jTable1.setModel(tbl);
             //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         } catch (IOException ex) {

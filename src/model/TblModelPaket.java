@@ -66,4 +66,9 @@ public class TblModelPaket extends AbstractTableModel {
         return paketi.get(red);
     }
 
+    public List<AbstractObjekat> vratiListu() {
+        return paketi;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

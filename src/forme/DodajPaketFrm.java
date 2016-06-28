@@ -371,7 +371,9 @@ public class DodajPaketFrm extends javax.swing.JPanel {
             try {
                 System.out.println(lista.size());
                 Paket p = (Paket) Kontroler.vratiKontrolera().zapamtiPaket(lista);
-                JOptionPane.showMessageDialog(jtxtCena, "Dodat je paket sa nazivom"
+//                JOptionPane.showMessageDialog(this, "Nije sačuvan paket "
+//                             + j + "", "Greška!", JOptionPane.ERROR_MESSAGE, null);
+                JOptionPane.showMessageDialog(jtxtCena, "Dodat je paket sa nazivom: "
                         + p.getNaziv() + "i cenom: " + p.getCena());
 
                 tblP.resetTabele(Kontroler.vratiKontrolera().vratiSvePakete());
@@ -448,8 +450,10 @@ public class DodajPaketFrm extends javax.swing.JPanel {
             
             try {
                 Paket pp = (Paket) Kontroler.vratiKontrolera().izmeniPaket(lista);
+//                 JOptionPane.showMessageDialog(this, "Nije  paket "
+//                             , "Greška!", JOptionPane.ERROR_MESSAGE, null);
                 JOptionPane.showMessageDialog(jtxtCena, "Izmenjen je paket, naziv: "
-                        + pp.getNaziv() + "i cena: " + pp.getCena());
+                        + pp.getNaziv() + " i cena: " + pp.getCena());
 //            updatePaket();
             } catch (IOException ex) {
                 Logger.getLogger(DodajPaketFrm.class.getName()).log(Level.SEVERE, null, ex);

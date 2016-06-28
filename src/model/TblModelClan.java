@@ -145,5 +145,10 @@ public class TblModelClan extends AbstractTableModel {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public List<AbstractObjekat> vratiListu() {
+        return clanovi;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
    
 }
