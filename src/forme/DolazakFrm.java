@@ -43,8 +43,7 @@ public class DolazakFrm extends javax.swing.JFrame {
         //System.out.println("pre comboboxa");
         srediComboBox();
         
-        JOptionPane.showMessageDialog(rootPane, "Dolazak nije evidentiran!! "
-                        , "Greška!", JOptionPane.ERROR_MESSAGE, null);
+        
     }
 
     /**

@@ -206,8 +206,9 @@ public class PaketFrm extends javax.swing.JFrame {
         
         Paket paket = (Paket) tblP.vratiPaket(red);
         
-        List<Termin> brisem;        
+             
         try {
+             List<Termin> brisem;  
             List<Termin> terminiInicijalno = new ArrayList<>();
                 List<AbstractObjekat> absTerm;
             absTerm = Kontroler.vratiKontrolera().vratiListuTermina();
@@ -220,7 +221,7 @@ public class PaketFrm extends javax.swing.JFrame {
                 }
             brisem = terminiInicijalno;
             
-             DodajPaketFrm pk = new DodajPaketFrm("update", paket, tblP, new ArrayList<>());
+             DodajPaketFrm pk = new DodajPaketFrm("update", paket, tblP, brisem);
         
         JDialog dialog = new JDialog(this, "Izmeni paket");
             dialog.add(pk);
